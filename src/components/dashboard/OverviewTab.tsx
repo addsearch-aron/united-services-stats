@@ -7,7 +7,7 @@ import { overviewKpis, trendData, topKeywords, serviceBreakdown, sessionJourneys
 import { ServiceType } from "@/types/analytics";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer,
-  Tooltip, XAxis, YAxis, Legend,
+  Tooltip, XAxis, YAxis, Legend, PieChart, Pie, Cell,
 } from "recharts";
 
 const serviceColors: Record<string, string> = {
