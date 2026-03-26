@@ -1,49 +1,34 @@
 
 
-# Overview Tab Revision
+# AI Tab Revision + Rename "Answer Quality" → "Sufficient Answers"
 
-## Tracking Model Update (types + mock data)
+## 1. Rename "Answer Quality" to "Sufficient Answers" everywhere
 
-Refine the data model to match the described hierarchy:
-- **Session** → contains multiple queries
-- **Query** (question_id) → triggers keyword search AND/OR AI answer
-- **Conversation** (conversation_id) → groups the initial AI answer query + all dive deeper follow-ups
-- Each query has: `questionId`, `conversationId` (if AI), `sessionId`
-- Track: `hasResults` (boolean) for searches, `answerGenerated` for AI, `answerQuality` (0-3)
+**Files:** `src/data/mock-data.ts`, `src/components/dashboard/OverviewTab.tsx`
+- KPI label in `overviewKpis`: "Answer Quality" → "Sufficient Answers"
+- Table column header in OverviewTab: "Answer Quality" → "Sufficient Answers"
 
-### New/updated types in `analytics.ts`:
-- Add `questionId` and `conversationId` fields to `SearchEvent`
-- Add `answerQuality: number` (0-3) to `AIAnswerEvent`
-- Add `hasResults: boolean` to `SearchEvent` (rename/clarify `resultsCount`)
-- Add `topic: string` to both `SearchEvent` and `AIAnswerEvent`
-- Update `KeywordRow` to include `noResultRate`, `avgAnswerQuality`, `topic`
-- Update `TrendDataPoint` to separate keyword search count vs AI answer count
+## 2. Update AI Tab KPI cards (6 cards)
 
-## Overview Page Changes
+**File:** `src/data/mock-data.ts` — replace `aiKpis` array:
+1. **Queries** — total AI queries (keep existing ~11,678)
+2. **Conversations** — unique conversations (~4,230)
+3. **Sufficient Answers** — % of answers rated 2-3 out of 0-3 (~89.4%)
+4. **Questions/Conversation** — avg questions per conversation (~2.8)
+5. **Dive Deeper Rate** — % of queries that triggered dive deeper (~34.2%, keep)
+6. **Clicks** — total clicks on AI answers/sources (~3,245)
 
-### KPI Cards (top row, 5 cards):
-1. **Total Queries** — searches + AI questions combined
-2. **Total Clicks** — all click actions
-3. **Overall CTR%** — clicks / queries
-4. **No Results %** — queries returning 0 results or no answer
-5. **AI Usage Rate** — AI queries / total queries
+Also add a 7th-style or incorporate **CTR** — clicks / queries as a percentage. Since user listed "Clicks and CTR" I'll add CTR as a 7th KPI, making it a 7-card grid, or combine into 6 by pairing. I'll use 7 KPIs in a responsive grid.
 
-### Chart:
-- Keep the area chart but ensure two clear lines: **Keyword Searches** and **AI Answers** (total answer count, not query count)
+**File:** `src/components/dashboard/AITab.tsx`:
+- Update grid to support 7 cards (`lg:grid-cols-7` or a wrapping layout)
+- Keep the funnel, click breakdown, query table, and journey sections as-is
 
-### Top Keywords Table — add columns:
-- Existing: Keyword, Searches, Clicks, CTR, Services
-- **New: No Results %** — percentage of times this keyword returned no results
-- **New: Avg Answer Quality** — average quality score (0-3) for AI answers on this keyword
-- **New: Topic** — auto-assigned topic category (e.g., "Pricing", "Features", "Support", "Integration")
+## 3. Files modified
 
-### Session Journeys:
-- Keep as-is (already working)
-
-## Files Modified
-
-1. **`src/types/analytics.ts`** — add `questionId`, `conversationId`, `answerQuality`, `topic`, `hasResults` fields; update `KeywordRow`
-2. **`src/data/mock-data.ts`** — update mock data generator to produce topic labels, answer quality scores, no-result flags; update KPI values to match new definitions
-3. **`src/components/dashboard/OverviewTab.tsx`** — 5 KPI cards, add No Results %, Answer Quality, and Topic columns to table
-4. **`src/components/dashboard/KpiCard.tsx`** — minor: support 5-card grid layout
+| File | Change |
+|------|--------|
+| `src/data/mock-data.ts` | Update `aiKpis` to 7 KPIs; rename "Answer Quality" → "Sufficient Answers" in `overviewKpis` |
+| `src/components/dashboard/AITab.tsx` | Update KPI grid layout for 7 cards |
+| `src/components/dashboard/OverviewTab.tsx` | Rename "Answer Quality" column header to "Sufficient Answers" |
 
