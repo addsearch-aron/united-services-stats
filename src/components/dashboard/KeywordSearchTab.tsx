@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { keywordSearchKpis, keywordRankings, zeroResultSearches } from "@/data/mock-data";
 import { TrendingUp, TrendingDown, Minus, Download } from "lucide-react";
+import { InfoTooltip } from "./InfoTooltip";
 import { toast } from "sonner";
 
 function exportToCsv() {
