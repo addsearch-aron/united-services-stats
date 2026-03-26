@@ -37,9 +37,10 @@ export function generateTrendData(days: number = 90): TrendDataPoint[] {
 export const trendData = generateTrendData();
 
 export const overviewKpis: KpiData[] = [
-  { label: "Total Searches", value: "24,521", change: 12.5, changeLabel: "vs last period" },
+  { label: "Total Queries", value: "24,521", change: 12.5, changeLabel: "vs last period" },
   { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period" },
   { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period" },
+  { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period" },
   { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period" },
 ];
 
