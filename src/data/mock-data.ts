@@ -101,7 +101,7 @@ export const aiQueryRows: AIQueryRow[] = [
 
 export const serviceBreakdown: ServiceBreakdown[] = [
   { service: "Keyword Search", searches: 12843, clicks: 4126, ctr: 32.1 },
-  { service: "AI (Answers + Conversations)", searches: 11678, clicks: 6182, ctr: 52.9 },
+  { service: "AI Assistance", searches: 11678, clicks: 6182, ctr: 52.9 },
 ];
 
 export const clickDistribution: ClickDistribution[] = [

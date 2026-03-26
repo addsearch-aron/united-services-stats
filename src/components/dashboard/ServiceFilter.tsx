@@ -10,7 +10,7 @@ interface ServiceFilterProps {
 
 const serviceLabels: Record<ServiceType, { label: string; icon: React.ElementType }> = {
   keyword_search: { label: "Keyword Search", icon: Search },
-  ai: { label: "AI (Answers + Conversations)", icon: BrainCircuit },
+  ai: { label: "AI Assistance", icon: BrainCircuit },
 };
 
 export function ServiceFilter({ available, active, onToggle }: ServiceFilterProps) {
