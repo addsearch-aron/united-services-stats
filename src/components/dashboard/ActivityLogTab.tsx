@@ -106,6 +106,15 @@ export function ActivityLogTab() {
     setFlags((prev) => new Map(prev).set(flagTarget.sessionId, annotation));
   };
 
+  const handleRemoveFlag = () => {
+    if (!flagTarget) return;
+    setFlags((prev) => {
+      const next = new Map(prev);
+      next.delete(flagTarget.sessionId);
+      return next;
+    });
+  };
+
   const toggleType = (type: ActivityEventType) => {
     setActiveTypes((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
