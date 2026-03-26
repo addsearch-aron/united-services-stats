@@ -120,13 +120,12 @@ export interface KeywordRow {
 
 export interface AIQueryRow {
   query: string;
+  topic: string;
+  asked: number;
+  clicks: number;
+  ctr: number;
+  quality: "high" | "medium" | "low";
   answerShown: boolean;
-  sourceClicks: number;
-  searchResultClicks: number;
-  answerLinkClicks: number;
-  diveDeeper: boolean;
-  conversationMessages: number;
-  conversationClicks: number;
   sentiment?: "positive" | "negative" | null;
   timestamp: Date;
 }

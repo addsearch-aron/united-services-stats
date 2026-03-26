@@ -54,7 +54,7 @@ export function KeywordSearchTab() {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-base">Keyword Rankings</CardTitle>
+          <CardTitle className="text-base">Top Queries</CardTitle>
           <Button variant="outline" size="sm" onClick={exportToCsv} className="gap-1.5">
             <Download className="h-3.5 w-3.5" />
             Export CSV
