@@ -289,6 +289,7 @@ export function ActivityLogTab() {
                             <TableCell className="text-sm max-w-[300px] truncate">{entry.detail}</TableCell>
                             <TableCell className="text-xs text-muted-foreground">{entry.url ?? "—"}</TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                           </TableRow>
                         );
                       })}
