@@ -134,7 +134,7 @@ export function OverviewTab({ activeServices }: Props) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Top Keywords</CardTitle>
+          <CardTitle className="text-base">Top Queries</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
