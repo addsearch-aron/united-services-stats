@@ -176,9 +176,7 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell>
                     <div className="flex gap-1">
                       {row.services.map((s) => (
-                        <Badge key={s} variant="secondary" className="text-[10px] px-1.5">
-                          {serviceLabel[s]}
-                        </Badge>
+                        <ServiceBadgePopover key={s} service={s} keyword={row.keyword} />
                       ))}
                     </div>
                   </TableCell>
