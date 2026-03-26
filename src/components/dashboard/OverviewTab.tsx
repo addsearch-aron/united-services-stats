@@ -136,7 +136,17 @@ export function OverviewTab({ activeServices }: Props) {
         </CardContent>
       </Card>
 
-      {/* Session Journeys Preview */}
+      {/* Topic Distribution */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Topic Distribution</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <TopicDistribution />
+        </CardContent>
+      </Card>
+
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Recent User Journeys</CardTitle>
