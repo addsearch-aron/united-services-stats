@@ -8,13 +8,13 @@ import { TrendingUp, TrendingDown, Minus, Download } from "lucide-react";
 import { toast } from "sonner";
 
 function exportToCsv() {
-  const headers = ["Keyword", "Searches", "Clicks", "CTR", "No Results %", "Topic", "Trend"];
+  const headers = ["Keyword", "Searches", "Clicks", "CTR", "ACP", "Topic", "Trend"];
   const rows = keywordRankings.map((r) => [
     r.keyword,
     r.searches,
     r.clicks,
     `${r.ctr}%`,
-    r.noResultRate != null ? `${r.noResultRate}%` : "",
+    r.avgClickPosition != null ? r.avgClickPosition.toFixed(1) : "",
     r.topic ?? "",
     r.trend,
   ]);
@@ -69,7 +69,7 @@ export function KeywordSearchTab() {
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
                 <TableHead className="text-right">CTR</TableHead>
-                <TableHead className="text-right">No Results %</TableHead>
+                <TableHead className="text-right">ACP</TableHead>
                 <TableHead className="text-right">Trend</TableHead>
               </TableRow>
             </TableHeader>
@@ -87,7 +87,7 @@ export function KeywordSearchTab() {
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
-                  <TableCell className="text-right">{row.noResultRate != null ? `${row.noResultRate}%` : "—"}</TableCell>
+                  <TableCell className="text-right">{row.avgClickPosition != null ? row.avgClickPosition.toFixed(1) : "—"}</TableCell>
                   <TableCell className="text-right">
                     <span className="inline-flex items-center gap-1">
                       {row.trend > 0 && <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />}

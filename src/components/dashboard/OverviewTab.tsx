@@ -145,7 +145,7 @@ export function OverviewTab({ activeServices }: Props) {
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
                 <TableHead className="text-right">CTR</TableHead>
-                <TableHead className="text-right">No Results</TableHead>
+                <TableHead className="text-right">ACP</TableHead>
                 <TableHead className="text-right">Answer Quality</TableHead>
                 <TableHead>Topic</TableHead>
                 <TableHead>Services</TableHead>
@@ -158,7 +158,7 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
-                  <TableCell className="text-right">{row.noResultRate}%</TableCell>
+                  <TableCell className="text-right">{row.avgClickPosition.toFixed(1)}</TableCell>
                   <TableCell className={`text-right font-medium ${qualityColor(row.avgAnswerQuality)}`}>
                     {row.avgAnswerQuality !== null ? row.avgAnswerQuality.toFixed(1) : "—"}
                   </TableCell>
