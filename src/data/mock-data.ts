@@ -321,7 +321,7 @@ export const activityLog: ActivityLogEntry[] = [
   { id: "log-002", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:05"), eventType: "ai_answer", keyword: "show me your pricing", detail: "AI Answer generated", answerQuality: "sufficient" },
   { id: "log-003", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:15"), eventType: "click", keyword: "show me your pricing", detail: "Clicked result #1: /pricing", url: "/pricing" },
   { id: "log-004", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:20"), eventType: "sentiment", keyword: "show me your pricing", detail: "Positive sentiment on AI Answer" },
-  { id: "log-005", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:30"), eventType: "dive_deeper", keyword: "show me your pricing", detail: "Clicked Dive Deeper → conversation started" },
+  { id: "log-005", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:30"), eventType: "dive_deeper", keyword: "show me your pricing", detail: "Clicked Dive Deeper → conversation started", answerQuality: "sufficient" },
   { id: "log-006", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:35"), eventType: "ai_conversation", detail: 'User message: "tell me more about AI pricing"' },
   { id: "log-007", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:33:00"), eventType: "click", detail: 'Clicked "Book a meeting" in conversation', url: "/book-meeting" },
   { id: "log-008", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:00"), eventType: "search", keyword: "how to set up webhooks", detail: "Search performed — 8 results" },
