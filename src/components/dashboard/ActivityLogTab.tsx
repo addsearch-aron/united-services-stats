@@ -304,6 +304,17 @@ export function ActivityLogTab() {
           )}
         </CardContent>
       </Card>
+
+      {flagTarget && (
+        <FlagDialog
+          open={flagDialogOpen}
+          onOpenChange={setFlagDialogOpen}
+          sessionId={flagTarget.sessionId}
+          keyword={flagTarget.keyword}
+          annotation={flags.get(flagTarget.sessionId) ?? null}
+          onSave={handleSaveFlag}
+        />
+      )}
     </div>
   );
 }
