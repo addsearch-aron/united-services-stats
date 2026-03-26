@@ -146,7 +146,7 @@ export function OverviewTab({ activeServices }: Props) {
                 <TableHead className="text-right">Clicks</TableHead>
                 <TableHead className="text-right">CTR</TableHead>
                 <TableHead className="text-right">ACP</TableHead>
-                <TableHead className="text-right">Answer Quality</TableHead>
+                <TableHead className="text-right">Sufficient Answers</TableHead>
                 <TableHead>Topic</TableHead>
                 <TableHead>Services</TableHead>
               </TableRow>
