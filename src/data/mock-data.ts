@@ -325,7 +325,7 @@ export const activityLog: ActivityLogEntry[] = [
   { id: "log-006", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:35"), eventType: "ai_conversation", detail: 'User message: "tell me more about AI pricing"' },
   { id: "log-007", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:33:00"), eventType: "click", detail: 'Clicked "Book a meeting" in conversation', url: "/book-meeting" },
   { id: "log-008", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:00"), eventType: "search", keyword: "how to set up webhooks", detail: "Search performed — 8 results" },
-  { id: "log-009", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:05"), eventType: "ai_answer", keyword: "how to set up webhooks", detail: "AI Answer generated" },
+  { id: "log-009", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:05"), eventType: "ai_answer", keyword: "how to set up webhooks", detail: "AI Answer generated", answerQuality: "sufficient" },
   { id: "log-010", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:20"), eventType: "click", keyword: "how to set up webhooks", detail: "Clicked source: /docs/webhooks", url: "/docs/webhooks" },
   { id: "log-011", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:16:00"), eventType: "dive_deeper", keyword: "how to set up webhooks", detail: "Clicked Dive Deeper → conversation started" },
   { id: "log-012", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:16:05"), eventType: "ai_conversation", detail: 'User: "what events can I listen to?"' },
