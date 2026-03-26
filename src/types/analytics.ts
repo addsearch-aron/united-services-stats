@@ -19,7 +19,11 @@ export interface SearchEvent {
   service: ServiceType;
   timestamp: Date;
   resultsCount: number;
+  hasResults: boolean;
   clicked: boolean;
+  questionId: string;
+  conversationId?: string;
+  topic?: string;
 }
 
 export interface ClickEvent {
@@ -34,14 +38,17 @@ export interface ClickEvent {
 export interface AIAnswerEvent {
   id: string;
   query: string;
+  questionId: string;
+  conversationId: string;
   answerGenerated: boolean;
+  answerQuality: number; // 0-3
   sourceClicks: number;
   searchResultClicks: number;
   answerLinkClicks: number;
-  conversationId?: string;
   diveDeeper: boolean;
   sentiment?: "positive" | "negative" | null;
   timestamp: Date;
+  topic?: string;
 }
 
 export interface ConversationMessage {
@@ -106,6 +113,9 @@ export interface KeywordRow {
   ctr: number;
   services: ServiceType[];
   trend: number;
+  noResultRate: number;
+  avgAnswerQuality: number | null;
+  topic: string;
 }
 
 export interface AIQueryRow {

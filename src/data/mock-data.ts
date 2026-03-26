@@ -37,9 +37,10 @@ export function generateTrendData(days: number = 90): TrendDataPoint[] {
 export const trendData = generateTrendData();
 
 export const overviewKpis: KpiData[] = [
-  { label: "Total Searches", value: "24,521", change: 12.5, changeLabel: "vs last period" },
+  { label: "Total Queries", value: "24,521", change: 12.5, changeLabel: "vs last period" },
   { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period" },
   { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period" },
+  { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period" },
   { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period" },
 ];
 
@@ -58,16 +59,16 @@ export const aiKpis: KpiData[] = [
 ];
 
 export const topKeywords: KeywordRow[] = [
-  { keyword: "pricing plans", searches: 1842, clicks: 723, ctr: 39.3, services: ["keyword_search", "ai"], trend: 2 },
-  { keyword: "how to integrate", searches: 1523, clicks: 612, ctr: 40.2, services: ["keyword_search", "ai"], trend: 5 },
-  { keyword: "api documentation", searches: 1201, clicks: 534, ctr: 44.5, services: ["keyword_search", "ai"], trend: -1 },
-  { keyword: "getting started", searches: 1087, clicks: 401, ctr: 36.9, services: ["keyword_search", "ai"], trend: 0 },
-  { keyword: "troubleshooting errors", searches: 956, clicks: 287, ctr: 30.0, services: ["ai"], trend: 3 },
-  { keyword: "billing support", searches: 834, clicks: 312, ctr: 37.4, services: ["keyword_search"], trend: -2 },
-  { keyword: "feature comparison", searches: 762, clicks: 298, ctr: 39.1, services: ["keyword_search", "ai"], trend: 1 },
-  { keyword: "account settings", searches: 698, clicks: 245, ctr: 35.1, services: ["keyword_search"], trend: -3 },
-  { keyword: "data export", searches: 621, clicks: 189, ctr: 30.4, services: ["keyword_search", "ai"], trend: 4 },
-  { keyword: "webhook setup", searches: 543, clicks: 201, ctr: 37.0, services: ["ai"], trend: 7 },
+  { keyword: "pricing plans", searches: 1842, clicks: 723, ctr: 39.3, services: ["keyword_search", "ai"], trend: 2, noResultRate: 1.2, avgAnswerQuality: 2.8, topic: "Pricing" },
+  { keyword: "how to integrate", searches: 1523, clicks: 612, ctr: 40.2, services: ["keyword_search", "ai"], trend: 5, noResultRate: 3.1, avgAnswerQuality: 2.5, topic: "Integration" },
+  { keyword: "api documentation", searches: 1201, clicks: 534, ctr: 44.5, services: ["keyword_search", "ai"], trend: -1, noResultRate: 0.8, avgAnswerQuality: 2.9, topic: "Documentation" },
+  { keyword: "getting started", searches: 1087, clicks: 401, ctr: 36.9, services: ["keyword_search", "ai"], trend: 0, noResultRate: 2.0, avgAnswerQuality: 2.6, topic: "Onboarding" },
+  { keyword: "troubleshooting errors", searches: 956, clicks: 287, ctr: 30.0, services: ["ai"], trend: 3, noResultRate: 12.4, avgAnswerQuality: 1.8, topic: "Support" },
+  { keyword: "billing support", searches: 834, clicks: 312, ctr: 37.4, services: ["keyword_search"], trend: -2, noResultRate: 5.6, avgAnswerQuality: null, topic: "Billing" },
+  { keyword: "feature comparison", searches: 762, clicks: 298, ctr: 39.1, services: ["keyword_search", "ai"], trend: 1, noResultRate: 2.3, avgAnswerQuality: 2.4, topic: "Features" },
+  { keyword: "account settings", searches: 698, clicks: 245, ctr: 35.1, services: ["keyword_search"], trend: -3, noResultRate: 4.1, avgAnswerQuality: null, topic: "Account" },
+  { keyword: "data export", searches: 621, clicks: 189, ctr: 30.4, services: ["keyword_search", "ai"], trend: 4, noResultRate: 8.7, avgAnswerQuality: 2.1, topic: "Features" },
+  { keyword: "webhook setup", searches: 543, clicks: 201, ctr: 37.0, services: ["ai"], trend: 7, noResultRate: 3.5, avgAnswerQuality: 2.7, topic: "Integration" },
 ];
 
 export const keywordRankings: KeywordRow[] = [
