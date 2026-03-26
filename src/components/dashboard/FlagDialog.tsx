@@ -148,12 +148,23 @@ export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation,
             {comments.length > 0 && (
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {comments.map((c) => (
-                  <div key={c.id} className="rounded-md border p-2 text-sm">
+                  <div key={c.id} className="rounded-md border p-2 text-sm group/comment">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-medium text-xs">{c.author}</span>
-                      <span className="text-[10px] text-muted-foreground">
-                        {format(c.timestamp, "MMM d, HH:mm")}
-                      </span>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] text-muted-foreground">
+                          {format(c.timestamp, "MMM d, HH:mm")}
+                        </span>
+                        {c.author === "Current User" && (
+                          <button
+                            onClick={() => setComments((prev) => prev.filter((x) => x.id !== c.id))}
+                            className="opacity-0 group-hover/comment:opacity-100 transition-opacity"
+                            title="Delete comment"
+                          >
+                            <Trash2 className="h-3 w-3 text-destructive" />
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <p className="text-muted-foreground text-xs">{c.text}</p>
                   </div>
