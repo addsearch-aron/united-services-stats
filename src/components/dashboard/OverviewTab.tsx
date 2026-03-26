@@ -135,7 +135,7 @@ export function OverviewTab({ activeServices }: Props) {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={280}>
-              <BarChart data={serviceBreakdown}>
+              <BarChart data={filteredServiceBreakdown}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                 <XAxis dataKey="service" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 11 }} />
