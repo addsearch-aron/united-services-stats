@@ -26,7 +26,7 @@ const statusOptions: { value: FlagStatus; label: string }[] = [
   { value: "golden_set", label: "Golden Set" },
 ];
 
-export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation, onSave }: FlagDialogProps) {
+export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation, onSave, onRemove }: FlagDialogProps) {
   const [status, setStatus] = React.useState<FlagStatus>(annotation?.status ?? "to_fix");
   const [expectedAnswer, setExpectedAnswer] = React.useState(annotation?.expectedAnswer ?? "");
   const [expectedSources, setExpectedSources] = React.useState<string[]>(
