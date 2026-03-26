@@ -19,7 +19,11 @@ export interface SearchEvent {
   service: ServiceType;
   timestamp: Date;
   resultsCount: number;
+  hasResults: boolean;
   clicked: boolean;
+  questionId: string;
+  conversationId?: string;
+  topic?: string;
 }
 
 export interface ClickEvent {
