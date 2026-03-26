@@ -36,7 +36,7 @@ export function OverviewTab({ activeServices }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
         {overviewKpis.map((kpi) => (
           <KpiCard key={kpi.label} data={kpi} />
         ))}
