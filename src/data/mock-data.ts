@@ -318,14 +318,14 @@ export const sessionJourneys: SessionJourney[] = [
 // Activity Log
 export const activityLog: ActivityLogEntry[] = [
   { id: "log-001", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:00"), eventType: "search", keyword: "show me your pricing", detail: "Search performed — 12 results" },
-  { id: "log-002", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:05"), eventType: "ai_answer", keyword: "show me your pricing", detail: "AI Answer generated" },
+  { id: "log-002", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:05"), eventType: "ai_answer", keyword: "show me your pricing", detail: "AI Answer generated", answerQuality: "sufficient" },
   { id: "log-003", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:15"), eventType: "click", keyword: "show me your pricing", detail: "Clicked result #1: /pricing", url: "/pricing" },
   { id: "log-004", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:20"), eventType: "sentiment", keyword: "show me your pricing", detail: "Positive sentiment on AI Answer" },
   { id: "log-005", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:30"), eventType: "dive_deeper", keyword: "show me your pricing", detail: "Clicked Dive Deeper → conversation started" },
   { id: "log-006", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:32:35"), eventType: "ai_conversation", detail: 'User message: "tell me more about AI pricing"' },
   { id: "log-007", sessionId: "sess-a1b2c3", timestamp: new Date("2026-03-25T14:33:00"), eventType: "click", detail: 'Clicked "Book a meeting" in conversation', url: "/book-meeting" },
   { id: "log-008", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:00"), eventType: "search", keyword: "how to set up webhooks", detail: "Search performed — 8 results" },
-  { id: "log-009", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:05"), eventType: "ai_answer", keyword: "how to set up webhooks", detail: "AI Answer generated" },
+  { id: "log-009", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:05"), eventType: "ai_answer", keyword: "how to set up webhooks", detail: "AI Answer generated", answerQuality: "sufficient" },
   { id: "log-010", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:15:20"), eventType: "click", keyword: "how to set up webhooks", detail: "Clicked source: /docs/webhooks", url: "/docs/webhooks" },
   { id: "log-011", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:16:00"), eventType: "dive_deeper", keyword: "how to set up webhooks", detail: "Clicked Dive Deeper → conversation started" },
   { id: "log-012", sessionId: "sess-d4e5f6", timestamp: new Date("2026-03-25T11:16:05"), eventType: "ai_conversation", detail: 'User: "what events can I listen to?"' },
@@ -334,7 +334,7 @@ export const activityLog: ActivityLogEntry[] = [
   { id: "log-015", sessionId: "sess-g7h8i9", timestamp: new Date("2026-03-24T09:20:10"), eventType: "click", keyword: "billing support", detail: "Clicked result #1: /billing-faq", url: "/billing-faq" },
   { id: "log-016", sessionId: "sess-g7h8i9", timestamp: new Date("2026-03-24T09:20:45"), eventType: "click", keyword: "billing support", detail: "Clicked result #3: /contact", url: "/contact" },
   { id: "log-017", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:00"), eventType: "search", keyword: "SSO integration", detail: "Search performed — 5 results" },
-  { id: "log-018", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:05"), eventType: "ai_answer", keyword: "SSO integration", detail: "AI Answer generated" },
+  { id: "log-018", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:05"), eventType: "ai_answer", keyword: "SSO integration", detail: "AI Answer generated", answerQuality: "no_answer" },
   { id: "log-019", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:30"), eventType: "sentiment", keyword: "SSO integration", detail: "Negative sentiment on AI Answer" },
   { id: "log-020", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:40"), eventType: "click", keyword: "SSO integration", detail: "Clicked result #2: /docs/sso", url: "/docs/sso" },
 ];

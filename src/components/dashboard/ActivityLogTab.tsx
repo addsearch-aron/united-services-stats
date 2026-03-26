@@ -27,6 +27,8 @@ interface SessionGroup {
   eventCount: number;
   eventTypes: ActivityEventType[];
   entries: ActivityLogEntry[];
+  resolved: "yes" | "no" | "na";
+  answerQuality: "sufficient" | "no_answer" | null;
 }
 
 function groupBySession(entries: ActivityLogEntry[]): SessionGroup[] {
@@ -41,6 +43,24 @@ function groupBySession(entries: ActivityLogEntry[]): SessionGroup[] {
   for (const [sessionId, items] of map) {
     const sorted = items.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
     const firstSearch = sorted.find((e) => e.eventType === "search");
+
+    const hasClicks = sorted.some((e) => e.eventType === "click");
+    const hasPositiveSentiment = sorted.some((e) => e.eventType === "sentiment" && e.detail.toLowerCase().includes("positive"));
+    const hasNegativeSentiment = sorted.some((e) => e.eventType === "sentiment" && e.detail.toLowerCase().includes("negative"));
+    const hasAI = sorted.some((e) => e.eventType === "ai_answer" || e.eventType === "ai_conversation");
+
+    let resolved: "yes" | "no" | "na";
+    if (hasClicks || hasPositiveSentiment) {
+      resolved = "yes";
+    } else if (hasNegativeSentiment || (hasAI && !hasClicks)) {
+      resolved = "no";
+    } else {
+      resolved = "na";
+    }
+
+    const aiEntry = sorted.find((e) => e.eventType === "ai_answer");
+    const answerQuality = aiEntry?.answerQuality ?? null;
+
     groups.push({
       sessionId,
       keyword: firstSearch?.keyword || sorted[0]?.keyword || "—",
@@ -48,11 +68,24 @@ function groupBySession(entries: ActivityLogEntry[]): SessionGroup[] {
       eventCount: sorted.length,
       eventTypes: [...new Set(sorted.map((e) => e.eventType))],
       entries: sorted,
+      resolved,
+      answerQuality,
     });
   }
 
   return groups.sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
 }
+
+const resolvedConfig = {
+  yes: { label: "Yes", className: "bg-emerald-500/10 text-emerald-700 border-emerald-200" },
+  no: { label: "No", className: "bg-red-500/10 text-red-700 border-red-200" },
+  na: { label: "n/a", className: "bg-muted text-muted-foreground" },
+};
+
+const qualityConfig = {
+  sufficient: { label: "Sufficient", className: "bg-emerald-500/10 text-emerald-700 border-emerald-200" },
+  no_answer: { label: "No Answer", className: "bg-red-500/10 text-red-700 border-red-200" },
+};
 
 export function ActivityLogTab() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -132,16 +165,15 @@ export function ActivityLogTab() {
                 <TableHead className="w-[120px]">Type</TableHead>
                 <TableHead className="w-[120px]">Session</TableHead>
                 <TableHead>Keyword</TableHead>
-                <TableHead>Detail</TableHead>
-                <TableHead>URL</TableHead>
+                <TableHead>Events</TableHead>
+                <TableHead className="w-[90px]">Resolved?</TableHead>
+                <TableHead className="w-[100px]">Quality</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {groups.map((group) => {
                 const isExpanded = expandedSessions.has(group.sessionId);
-                const firstEntry = group.entries[0];
-                const firstConfig = eventConfig[firstEntry.eventType];
-                const FirstIcon = firstConfig.icon;
+                const rc = resolvedConfig[group.resolved];
 
                 return (
                   <React.Fragment key={group.sessionId}>
@@ -185,7 +217,20 @@ export function ActivityLogTab() {
                       <TableCell className="text-sm text-muted-foreground">
                         {group.eventCount} event{group.eventCount !== 1 ? "s" : ""}
                       </TableCell>
-                      <TableCell></TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className={`text-[10px] ${rc.className}`}>
+                          {rc.label}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {group.answerQuality ? (
+                          <Badge variant="outline" className={`text-[10px] ${qualityConfig[group.answerQuality].className}`}>
+                            {qualityConfig[group.answerQuality].label}
+                          </Badge>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
                     </TableRow>
 
                     {/* Expanded child rows */}
@@ -213,6 +258,7 @@ export function ActivityLogTab() {
                             <TableCell className="text-sm">{entry.keyword ?? "—"}</TableCell>
                             <TableCell className="text-sm max-w-[300px] truncate">{entry.detail}</TableCell>
                             <TableCell className="text-xs text-muted-foreground">{entry.url ?? "—"}</TableCell>
+                            <TableCell></TableCell>
                           </TableRow>
                         );
                       })}
