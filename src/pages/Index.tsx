@@ -8,6 +8,7 @@ import { OverviewTab } from "@/components/dashboard/OverviewTab";
 import { KeywordSearchTab } from "@/components/dashboard/KeywordSearchTab";
 import { AITab } from "@/components/dashboard/AITab";
 import { ActivityLogTab } from "@/components/dashboard/ActivityLogTab";
+import { QuotaWidget } from "@/components/dashboard/QuotaWidget";
 import { clientConfig } from "@/data/mock-data";
 import { DateRange, ServiceType } from "@/types/analytics";
 
@@ -39,7 +40,11 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">{clientConfig.name}</p>
             </div>
           </div>
-          <DateRangePicker dateRange={dateRange} onDateRangeChange={setDateRange} />
+          <div className="flex items-center gap-4">
+            <QuotaWidget label="Keyword Quota" used={12843} total={100000} />
+            <QuotaWidget label="Answers Quota" used={51} total={500000} />
+            <DateRangePicker dateRange={dateRange} onDateRangeChange={setDateRange} />
+          </div>
         </div>
       </header>
 
