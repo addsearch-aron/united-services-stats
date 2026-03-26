@@ -61,7 +61,7 @@ const Index = () => {
                 <TabsTrigger value="keyword_search">Keyword Search</TabsTrigger>
               )}
               {activeServices.includes("ai") && (
-                <TabsTrigger value="ai">AI</TabsTrigger>
+                <TabsTrigger value="ai">AI Assistance</TabsTrigger>
               )}
               <TabsTrigger value="activity_log">Activity Log</TabsTrigger>
             </TabsList>
