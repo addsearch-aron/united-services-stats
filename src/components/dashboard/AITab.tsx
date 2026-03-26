@@ -15,7 +15,7 @@ const funnelColors = ["hsl(222, 47%, 30%)", "hsl(200, 70%, 45%)", "hsl(30, 90%, 
 export function AITab() {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
         {aiKpis.map((kpi) => (
           <KpiCard key={kpi.label} data={kpi} />
         ))}

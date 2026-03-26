@@ -41,7 +41,7 @@ export const overviewKpis: KpiData[] = [
   { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period" },
   { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period" },
   { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period" },
-  { label: "Answer Quality", value: "92.5%", change: 3.2, changeLabel: "vs last period" },
+  { label: "Sufficient Answers", value: "92.5%", change: 3.2, changeLabel: "vs last period" },
   { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period" },
 ];
 
@@ -54,9 +54,12 @@ export const keywordSearchKpis: KpiData[] = [
 
 export const aiKpis: KpiData[] = [
   { label: "Queries", value: "11,678", change: 22.4 },
-  { label: "Answers Generated", value: "7,102", change: 18.1 },
+  { label: "Conversations", value: "4,230", change: 14.8 },
+  { label: "Sufficient Answers", value: "89.4%", change: 3.2 },
+  { label: "Questions/Conversation", value: "2.8", change: 5.1 },
   { label: "Dive Deeper Rate", value: "34.2%", change: 8.6 },
-  { label: "Conversation Clicks", value: "1,876", change: 14.3 },
+  { label: "Clicks", value: "3,245", change: 14.3 },
+  { label: "CTR", value: "27.8%", change: 2.4 },
 ];
 
 export const topKeywords: KeywordRow[] = [
