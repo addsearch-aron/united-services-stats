@@ -17,6 +17,7 @@ interface FlagDialogProps {
   keyword: string;
   annotation: FlagAnnotation | null;
   onSave: (annotation: FlagAnnotation) => void;
+  onRemove: () => void;
 }
 
 const statusOptions: { value: FlagStatus; label: string }[] = [
