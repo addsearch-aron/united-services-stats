@@ -12,7 +12,7 @@ export function KpiCard({ data }: KpiCardProps) {
   return (
     <Card>
       <CardContent className="p-5">
-        <p className="text-sm font-medium text-muted-foreground">{data.label}</p>
+        <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">{data.label}</p>
         <p className="mt-1 text-2xl font-bold text-foreground">{data.value}</p>
         {data.change !== undefined && (
           <div className="mt-2 flex items-center gap-1 text-xs">
