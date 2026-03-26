@@ -169,20 +169,6 @@ export function AITab() {
         </Card>
       </div>
 
-      {/* Session Journeys */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">AI Journey Examples</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {sessionJourneys
-            .filter((j) => j.steps.some((s) => s.children?.some((c) => c.type === "ai_answer")))
-            .slice(0, 3)
-            .map((journey) => (
-              <SessionJourneyCard key={journey.id} journey={journey} />
-            ))}
-        </CardContent>
-      </Card>
     </div>
   );
 }
