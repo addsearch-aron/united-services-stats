@@ -246,6 +246,21 @@ export function ActivityLogTab() {
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
+                      <TableCell className="px-2">
+                        <button
+                          onClick={(e) => openFlagDialog(group.sessionId, group.keyword, e)}
+                          className="inline-flex items-center justify-center h-6 w-6 rounded hover:bg-muted transition-colors"
+                          title="Flag this session"
+                        >
+                          <Flag
+                            className={`h-3.5 w-3.5 ${
+                              flags.has(group.sessionId)
+                                ? "text-orange-500 fill-orange-500"
+                                : "text-muted-foreground"
+                            }`}
+                          />
+                        </button>
+                      </TableCell>
                     </TableRow>
 
                     {/* Expanded child rows */}
