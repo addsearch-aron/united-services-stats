@@ -82,6 +82,21 @@ function TopicDistribution() {
 export function OverviewTab({ activeServices }: Props) {
   const filteredTrend = trendData.slice(-30);
 
+  const filteredServiceBreakdown = serviceBreakdown.filter((sb) => {
+    if (sb.service === "Keyword Search") return activeServices.includes("keyword_search");
+    if (sb.service === "AI Assistance") return activeServices.includes("ai");
+    return true;
+  });
+
+  const filteredKeywords = topKeywords
+    .filter((row) => row.services.some((s) => activeServices.includes(s)))
+    .map((row) => ({
+      ...row,
+      services: row.services.filter((s) => activeServices.includes(s)),
+      // Hide AI quality when AI is not active
+      avgAnswerQuality: activeServices.includes("ai") ? row.avgAnswerQuality : null,
+    }));
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
