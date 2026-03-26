@@ -322,6 +322,7 @@ export function ActivityLogTab() {
           keyword={flagTarget.keyword}
           annotation={flags.get(flagTarget.sessionId) ?? null}
           onSave={handleSaveFlag}
+          onRemove={handleRemoveFlag}
         />
       )}
     </div>
