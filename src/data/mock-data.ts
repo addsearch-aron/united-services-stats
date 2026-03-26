@@ -37,28 +37,28 @@ export function generateTrendData(days: number = 90): TrendDataPoint[] {
 export const trendData = generateTrendData();
 
 export const overviewKpis: KpiData[] = [
-  { label: "Total Queries", value: "24,521", change: 12.5, changeLabel: "vs last period" },
-  { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period" },
-  { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period" },
-  { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period" },
-  { label: "Sufficient Answers", value: "89.4%", change: 3.2, changeLabel: "vs last period" },
-  { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period" },
+  { label: "Total Queries", value: "24,521", change: 12.5, changeLabel: "vs last period", tooltip: "Total number of search queries and AI questions submitted across all services." },
+  { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period", tooltip: "Total clicks on search results, AI answer sources, and answer links." },
+  { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period", tooltip: "Click-Through Rate = (Total Clicks ÷ Total Queries) × 100. Measures how often a query leads to a click." },
+  { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period", tooltip: "Percentage of queries that returned zero results. Lower is better." },
+  { label: "Sufficient Answers", value: "89.4%", change: 3.2, changeLabel: "vs last period", tooltip: "Percentage of AI-answered queries rated as sufficient (quality score ≥ 2 out of 3). Based on automated quality evaluation." },
+  { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period", tooltip: "Percentage of total queries handled by the AI service (answers + conversations)." },
 ];
 
 export const keywordSearchKpis: KpiData[] = [
-  { label: "Searches", value: "12,843", change: 5.3 },
-  { label: "Clicks", value: "4,126", change: 3.1 },
-  { label: "CTR", value: "32.1%", change: -1.2 },
-  { label: "No Results", value: "4.8%", change: -0.9, changeLabel: "vs last period" },
+  { label: "Searches", value: "12,843", change: 5.3, tooltip: "Total keyword search queries submitted." },
+  { label: "Clicks", value: "4,126", change: 3.1, tooltip: "Total clicks on keyword search results." },
+  { label: "CTR", value: "32.1%", change: -1.2, tooltip: "Click-Through Rate = (Clicks ÷ Searches) × 100 for keyword search." },
+  { label: "No Results", value: "4.8%", change: -0.9, changeLabel: "vs last period", tooltip: "Percentage of keyword searches that returned zero results." },
 ];
 
 export const aiKpis: KpiData[] = [
-  { label: "Queries", value: "11,678", change: 22.4 },
-  { label: "Conversations", value: "4,230", change: 14.8 },
-  { label: "Questions/Conversation", value: "2.8", change: 5.1 },
-  { label: "Sufficient Answers", value: "89.4%", change: 3.2 },
-  { label: "Clicks", value: "3,245", change: 14.3 },
-  { label: "CTR", value: "27.8%", change: 2.4 },
+  { label: "Queries", value: "11,678", change: 22.4, tooltip: "Total AI queries including single-turn answers and conversation messages." },
+  { label: "Conversations", value: "4,230", change: 14.8, tooltip: "Number of multi-turn AI conversations (2+ messages in a session)." },
+  { label: "Questions/Conversation", value: "2.8", change: 5.1, tooltip: "Average number of user questions per conversation session." },
+  { label: "Sufficient Answers", value: "89.4%", change: 3.2, tooltip: "Percentage of AI answers rated quality ≥ 2 out of 3. Based on automated evaluation." },
+  { label: "Clicks", value: "3,245", change: 14.3, tooltip: "Total clicks on AI answer sources, links, and conversation links." },
+  { label: "CTR", value: "27.8%", change: 2.4, tooltip: "Click-Through Rate = (AI Clicks ÷ AI Queries) × 100." },
 ];
 
 export const topKeywords: KeywordRow[] = [
