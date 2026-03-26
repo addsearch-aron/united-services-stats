@@ -14,7 +14,7 @@ function exportToCsv() {
     r.searches,
     r.clicks,
     `${r.ctr}%`,
-    r.noResultRate != null ? `${r.noResultRate}%` : "",
+    r.avgClickPosition != null ? r.avgClickPosition.toFixed(1) : "",
     r.topic ?? "",
     r.trend,
   ]);
