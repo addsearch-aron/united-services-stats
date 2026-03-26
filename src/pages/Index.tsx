@@ -40,9 +40,10 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">{clientConfig.name}</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <QuotaWidget label="Keyword Quota" used={12843} total={100000} />
             <QuotaWidget label="Answers Quota" used={51} total={500000} />
+            <div className="h-8 w-px bg-border" />
             <DateRangePicker dateRange={dateRange} onDateRangeChange={setDateRange} />
           </div>
         </div>

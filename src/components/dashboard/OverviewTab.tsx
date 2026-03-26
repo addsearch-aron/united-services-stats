@@ -1,9 +1,8 @@
 import { KpiCard } from "./KpiCard";
-import { SessionJourneyCard } from "./SessionJourneyCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { overviewKpis, trendData, topKeywords, serviceBreakdown, sessionJourneys } from "@/data/mock-data";
+import { overviewKpis, trendData, topKeywords, serviceBreakdown } from "@/data/mock-data";
 import { ServiceType } from "@/types/analytics";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer,
@@ -193,17 +192,6 @@ export function OverviewTab({ activeServices }: Props) {
         </CardContent>
       </Card>
 
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Recent User Journeys</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {sessionJourneys.slice(0, 3).map((journey) => (
-            <SessionJourneyCard key={journey.id} journey={journey} />
-          ))}
-        </CardContent>
-      </Card>
     </div>
   );
 }
