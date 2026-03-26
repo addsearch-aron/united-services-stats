@@ -1,47 +1,36 @@
 
 
-# Activity Log Collapsed View Improvements
+## Plan: Add Flag/Annotation Feature to Activity Log
 
-## What changes
+### What We're Building
+A flag button on each activity log row that opens a dialog for annotating/flagging queries. The dialog contains:
+- **Status dropdown**: "To Fix", "Fixed", "Golden Set"
+- **Expected Answer**: text input
+- **Expected Sources**: one or more HTML/URL source inputs (with add/remove)
+- **Comments thread**: comment input + display of existing comments (supporting replies from different users)
 
-### 1. Replace "URL" column with "Resolved?" and "Answer Quality" in collapsed view
+### Technical Details
 
-**Collapsed row columns** become:
-| Expand | Timestamp | Type Icons | Session | Keyword | Events | Resolved? | Quality |
+**1. Create Flag Dialog Component** (`src/components/dashboard/FlagDialog.tsx`)
+- Uses shadcn `Dialog`, `Select`, `Input`, `Textarea`, `Button`
+- Props: `open`, `onOpenChange`, `sessionId`, `keyword`
+- State for: status dropdown, expected answer text, array of expected sources (add/remove buttons), new comment text, list of comments (mock with author + timestamp)
+- Comments displayed as a simple thread with author name and timestamp
 
-- **Resolved?** — A badge: `Yes` (green), `No` (red), or `n/a` (gray). Derived per session group:
-  - `Yes` if the session has clicks OR a positive sentiment
-  - `No` if no clicks AND (no AI answer OR negative sentiment)
-  - `n/a` if it's a pure search-only session with no AI and no clicks (edge case)
+**2. Create Flag Data Types** (`src/types/analytics.ts`)
+- Add `FlagStatus = "to_fix" | "fixed" | "golden_set"`
+- Add `FlagAnnotation` interface with status, expectedAnswer, expectedSources[], comments[]
+- Add `FlagComment` interface with id, author, text, timestamp
 
-- **Quality** — Shown only when the session includes `ai_answer` or `ai_conversation` events. Displays a badge like `Sufficient`, `No Answer`, or `—`. Derived from mock data (we'll add an `answerQuality` field to the AI-related activity log entries).
+**3. Update ActivityLogTab** (`src/components/dashboard/ActivityLogTab.tsx`)
+- Add a `Flag` icon button in the group header row (new column or at end of row)
+- Click opens the `FlagDialog`
+- Store flag data in local state (Map keyed by sessionId)
+- Show filled/colored flag icon if session has been flagged
+- Stop click propagation so flag click doesn't toggle row expansion
 
-### 2. Update data model (`src/types/analytics.ts`)
-
-Add optional fields to `ActivityLogEntry`:
-- `answerQuality?: "sufficient" | "no_answer" | null` — for `ai_answer` events
-- `resolved?: boolean` — can be computed, but we'll derive it in the component
-
-### 3. Update mock data (`src/data/mock-data.ts`)
-
-Add `answerQuality` to `ai_answer` entries:
-- `log-002` (pricing): `answerQuality: "sufficient"`
-- `log-009` (webhooks): `answerQuality: "sufficient"`
-- `log-018` (SSO): `answerQuality: "no_answer"` (has negative sentiment)
-
-### 4. Update Activity Log component (`src/components/dashboard/ActivityLogTab.tsx`)
-
-- Extend `SessionGroup` with computed `resolved` and `answerQuality` fields
-- In `groupBySession`, derive:
-  - `resolved`: check for clicks or positive sentiment → Yes; negative sentiment + no clicks → No; else n/a
-  - `answerQuality`: pull from the `ai_answer` entry if present
-- Replace the URL column header/cells in the **collapsed row** with Resolved? badge and Quality badge
-- Keep URL visible in the **expanded child rows** (where it's contextually useful)
-
-### Files modified
-| File | Change |
-|------|--------|
-| `src/types/analytics.ts` | Add `answerQuality` optional field to `ActivityLogEntry` |
-| `src/data/mock-data.ts` | Add `answerQuality` to AI answer log entries |
-| `src/components/dashboard/ActivityLogTab.tsx` | Replace URL with Resolved? + Quality columns in collapsed view |
+**4. Files Changed**
+- `src/types/analytics.ts` — add flag types
+- `src/components/dashboard/FlagDialog.tsx` — new component
+- `src/components/dashboard/ActivityLogTab.tsx` — add flag column + dialog integration
 
