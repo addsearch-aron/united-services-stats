@@ -10,6 +10,7 @@ export interface KpiData {
   value: string | number;
   change?: number;
   changeLabel?: string;
+  tooltip?: string;
 }
 
 // Unified event types
