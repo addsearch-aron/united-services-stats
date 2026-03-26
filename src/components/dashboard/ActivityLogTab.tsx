@@ -190,8 +190,8 @@ export function ActivityLogTab() {
                 <TableHead className="w-[120px]">Session</TableHead>
                 <TableHead>Keyword</TableHead>
                 <TableHead>Events</TableHead>
-                <TableHead className="w-[90px]">Resolved?</TableHead>
-                <TableHead className="w-[100px]">Quality</TableHead>
+                <TableHead className="w-[90px]">Resolved?<InfoTooltip text="Whether the user's query was resolved. Yes = clicked a result or gave positive sentiment. No = negative sentiment or no clicks after AI answer." /></TableHead>
+                <TableHead className="w-[100px]">Quality<InfoTooltip text="AI answer quality: Sufficient = answer met user needs. No Answer = AI could not generate an answer." /></TableHead>
                 <TableHead className="w-[40px]"></TableHead>
               </TableRow>
             </TableHeader>
