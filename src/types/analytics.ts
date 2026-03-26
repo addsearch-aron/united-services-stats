@@ -38,14 +38,17 @@ export interface ClickEvent {
 export interface AIAnswerEvent {
   id: string;
   query: string;
+  questionId: string;
+  conversationId: string;
   answerGenerated: boolean;
+  answerQuality: number; // 0-3
   sourceClicks: number;
   searchResultClicks: number;
   answerLinkClicks: number;
-  conversationId?: string;
   diveDeeper: boolean;
   sentiment?: "positive" | "negative" | null;
   timestamp: Date;
+  topic?: string;
 }
 
 export interface ConversationMessage {
