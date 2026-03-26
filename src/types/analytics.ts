@@ -152,3 +152,19 @@ export interface ClientConfig {
   services: ServiceType[];
   name: string;
 }
+
+export type FlagStatus = "to_fix" | "fixed" | "golden_set";
+
+export interface FlagComment {
+  id: string;
+  author: string;
+  text: string;
+  timestamp: Date;
+}
+
+export interface FlagAnnotation {
+  status: FlagStatus;
+  expectedAnswer: string;
+  expectedSources: string[];
+  comments: FlagComment[];
+}
