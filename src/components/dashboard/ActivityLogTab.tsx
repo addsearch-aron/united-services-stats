@@ -264,7 +264,12 @@ export function ActivityLogTab() {
                           <Flag
                             className={`h-3.5 w-3.5 ${
                               flags.has(group.sessionId)
-                                ? "text-orange-500 fill-orange-500"
+                                ? (() => {
+                                    const s = flags.get(group.sessionId)!.status;
+                                    if (s === "to_fix") return "text-red-500 fill-red-500";
+                                    if (s === "fixed") return "text-emerald-500 fill-emerald-500";
+                                    return "text-yellow-500 fill-yellow-500";
+                                  })()
                                 : "text-muted-foreground"
                             }`}
                           />
