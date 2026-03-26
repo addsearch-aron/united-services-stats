@@ -41,7 +41,7 @@ export const overviewKpis: KpiData[] = [
   { label: "Total Clicks", value: "8,432", change: 8.2, changeLabel: "vs last period" },
   { label: "Overall CTR", value: "34.4%", change: 2.1, changeLabel: "vs last period" },
   { label: "No Results", value: "6.8%", change: -1.4, changeLabel: "vs last period" },
-  { label: "Answer Quality", value: "92.5%", change: 3.2, changeLabel: "vs last period" },
+  { label: "Sufficient Answers", value: "92.5%", change: 3.2, changeLabel: "vs last period" },
   { label: "AI Usage Rate", value: "62.3%", change: 15.7, changeLabel: "vs last period" },
 ];
 
