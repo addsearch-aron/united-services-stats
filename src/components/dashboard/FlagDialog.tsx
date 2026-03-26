@@ -17,6 +17,7 @@ interface FlagDialogProps {
   keyword: string;
   annotation: FlagAnnotation | null;
   onSave: (annotation: FlagAnnotation) => void;
+  onRemove: () => void;
 }
 
 const statusOptions: { value: FlagStatus; label: string }[] = [
@@ -25,7 +26,7 @@ const statusOptions: { value: FlagStatus; label: string }[] = [
   { value: "golden_set", label: "Golden Set" },
 ];
 
-export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation, onSave }: FlagDialogProps) {
+export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation, onSave, onRemove }: FlagDialogProps) {
   const [status, setStatus] = React.useState<FlagStatus>(annotation?.status ?? "to_fix");
   const [expectedAnswer, setExpectedAnswer] = React.useState(annotation?.expectedAnswer ?? "");
   const [expectedSources, setExpectedSources] = React.useState<string[]>(
@@ -186,11 +187,27 @@ export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation,
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>Save Flag</Button>
+          <div className="flex justify-between pt-2">
+            {annotation ? (
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => {
+                  onRemove();
+                  onOpenChange(false);
+                }}
+              >
+                Remove Flag
+              </Button>
+            ) : (
+              <div />
+            )}
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => onOpenChange(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>Save Flag</Button>
+            </div>
           </div>
         </div>
       </DialogContent>
