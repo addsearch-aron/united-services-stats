@@ -5,10 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { activityLog } from "@/data/mock-data";
-import { ActivityEventType, ActivityLogEntry } from "@/types/analytics";
+import { ActivityEventType, ActivityLogEntry, FlagAnnotation } from "@/types/analytics";
 import { format } from "date-fns";
-import { Search, MousePointerClick, BrainCircuit, MessageSquare, ArrowDownRight, ThumbsUp, ChevronDown, ChevronRight } from "lucide-react";
-
+import { Search, MousePointerClick, BrainCircuit, MessageSquare, ArrowDownRight, ThumbsUp, ChevronDown, ChevronRight, Flag } from "lucide-react";
+import { FlagDialog } from "./FlagDialog";
 const eventConfig: Record<ActivityEventType, { label: string; icon: React.ElementType; color: string }> = {
   search: { label: "Search", icon: Search, color: "bg-primary/10 text-primary" },
   click: { label: "Click", icon: MousePointerClick, color: "bg-blue-500/10 text-blue-600" },
