@@ -158,7 +158,7 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
-                  <TableCell className="text-right">{row.noResultRate}%</TableCell>
+                  <TableCell className="text-right">{row.avgClickPosition.toFixed(1)}</TableCell>
                   <TableCell className={`text-right font-medium ${qualityColor(row.avgAnswerQuality)}`}>
                     {row.avgAnswerQuality !== null ? row.avgAnswerQuality.toFixed(1) : "—"}
                   </TableCell>
