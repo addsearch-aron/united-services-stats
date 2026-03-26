@@ -182,6 +182,7 @@ export function ActivityLogTab() {
                 <TableHead>Events</TableHead>
                 <TableHead className="w-[90px]">Resolved?</TableHead>
                 <TableHead className="w-[100px]">Quality</TableHead>
+                <TableHead className="w-[40px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
