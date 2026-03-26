@@ -87,14 +87,16 @@ export const zeroResultSearches = [
 ];
 
 export const aiQueryRows: AIQueryRow[] = [
-  { query: "How do I reset my password?", answerShown: true, sourceClicks: 45, searchResultClicks: 23, answerLinkClicks: 67, diveDeeper: false, conversationMessages: 0, conversationClicks: 0, sentiment: "positive", timestamp: new Date("2026-03-25") },
-  { query: "What are the pricing tiers?", answerShown: true, sourceClicks: 89, searchResultClicks: 34, answerLinkClicks: 112, diveDeeper: true, conversationMessages: 4, conversationClicks: 2, sentiment: "positive", timestamp: new Date("2026-03-25") },
-  { query: "How to set up webhooks?", answerShown: true, sourceClicks: 34, searchResultClicks: 56, answerLinkClicks: 28, diveDeeper: true, conversationMessages: 6, conversationClicks: 3, sentiment: null, timestamp: new Date("2026-03-24") },
-  { query: "API rate limits explained", answerShown: true, sourceClicks: 67, searchResultClicks: 12, answerLinkClicks: 45, diveDeeper: false, conversationMessages: 0, conversationClicks: 0, sentiment: "positive", timestamp: new Date("2026-03-24") },
-  { query: "How to export data as CSV?", answerShown: false, sourceClicks: 0, searchResultClicks: 78, answerLinkClicks: 0, diveDeeper: false, conversationMessages: 0, conversationClicks: 0, sentiment: null, timestamp: new Date("2026-03-23") },
-  { query: "Team member permissions", answerShown: true, sourceClicks: 23, searchResultClicks: 45, answerLinkClicks: 31, diveDeeper: true, conversationMessages: 3, conversationClicks: 1, sentiment: "negative", timestamp: new Date("2026-03-23") },
-  { query: "SSO integration guide", answerShown: true, sourceClicks: 56, searchResultClicks: 19, answerLinkClicks: 42, diveDeeper: true, conversationMessages: 8, conversationClicks: 4, sentiment: "positive", timestamp: new Date("2026-03-22") },
-  { query: "Billing cycle questions", answerShown: false, sourceClicks: 0, searchResultClicks: 63, answerLinkClicks: 0, diveDeeper: false, conversationMessages: 0, conversationClicks: 0, sentiment: null, timestamp: new Date("2026-03-22") },
+  { query: "How do I reset my password?", topic: "Account", asked: 342, clicks: 156, ctr: 45.6, quality: "high", answerShown: true, sentiment: "positive", timestamp: new Date("2026-03-25") },
+  { query: "What are the pricing tiers?", topic: "Pricing", asked: 289, clicks: 145, ctr: 50.2, quality: "high", answerShown: true, sentiment: "positive", timestamp: new Date("2026-03-25") },
+  { query: "How to set up webhooks?", topic: "Integration", asked: 234, clicks: 90, ctr: 38.5, quality: "medium", answerShown: true, sentiment: null, timestamp: new Date("2026-03-24") },
+  { query: "API rate limits explained", topic: "Documentation", asked: 198, clicks: 79, ctr: 39.9, quality: "high", answerShown: true, sentiment: "positive", timestamp: new Date("2026-03-24") },
+  { query: "How to export data as CSV?", topic: "Features", asked: 176, clicks: 78, ctr: 44.3, quality: "low", answerShown: false, sentiment: null, timestamp: new Date("2026-03-23") },
+  { query: "Team member permissions", topic: "Account", asked: 154, clicks: 68, ctr: 44.2, quality: "medium", answerShown: true, sentiment: "negative", timestamp: new Date("2026-03-23") },
+  { query: "SSO integration guide", topic: "Integration", asked: 143, clicks: 61, ctr: 42.7, quality: "high", answerShown: true, sentiment: "positive", timestamp: new Date("2026-03-22") },
+  { query: "Billing cycle questions", topic: "Billing", asked: 132, clicks: 63, ctr: 47.7, quality: "medium", answerShown: false, sentiment: null, timestamp: new Date("2026-03-22") },
+  { query: "Custom domain setup", topic: "Features", asked: 98, clicks: 0, ctr: 0, quality: "low", answerShown: true, sentiment: "negative", timestamp: new Date("2026-03-21") },
+  { query: "Mobile app availability", topic: "Features", asked: 87, clicks: 0, ctr: 0, quality: "low", answerShown: false, sentiment: null, timestamp: new Date("2026-03-21") },
 ];
 
 export const serviceBreakdown: ServiceBreakdown[] = [
