@@ -58,8 +58,8 @@ function groupBySession(entries: ActivityLogEntry[]): SessionGroup[] {
       resolved = "na";
     }
 
-    const aiEntry = sorted.find((e) => e.eventType === "ai_answer");
-    const answerQuality = aiEntry?.answerQuality ?? null;
+    const qualityEntry = sorted.find((e) => (e.eventType === "ai_answer" || e.eventType === "dive_deeper") && e.answerQuality);
+    const answerQuality = qualityEntry?.answerQuality ?? null;
 
     groups.push({
       sessionId,
