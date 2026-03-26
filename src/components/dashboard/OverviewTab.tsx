@@ -1,8 +1,9 @@
 import { KpiCard } from "./KpiCard";
+import { SessionJourneyCard } from "./SessionJourneyCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { overviewKpis, trendData, topKeywords, serviceBreakdown } from "@/data/mock-data";
+import { overviewKpis, trendData, topKeywords, serviceBreakdown, sessionJourneys } from "@/data/mock-data";
 import { ServiceType } from "@/types/analytics";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer,
@@ -11,14 +12,12 @@ import {
 
 const serviceColors: Record<string, string> = {
   keywordSearch: "hsl(222, 47%, 30%)",
-  aiAnswers: "hsl(200, 70%, 45%)",
-  aiConversations: "hsl(160, 60%, 40%)",
+  ai: "hsl(200, 70%, 45%)",
 };
 
 const serviceLabel: Record<ServiceType, string> = {
   keyword_search: "KW",
-  ai_answers: "AI-A",
-  ai_conversations: "AI-C",
+  ai: "AI",
 };
 
 interface Props {
@@ -52,11 +51,8 @@ export function OverviewTab({ activeServices }: Props) {
                 {activeServices.includes("keyword_search") && (
                   <Area type="monotone" dataKey="keywordSearch" name="Keyword Search" stroke={serviceColors.keywordSearch} fill={serviceColors.keywordSearch} fillOpacity={0.15} />
                 )}
-                {activeServices.includes("ai_answers") && (
-                  <Area type="monotone" dataKey="aiAnswers" name="AI Answers" stroke={serviceColors.aiAnswers} fill={serviceColors.aiAnswers} fillOpacity={0.15} />
-                )}
-                {activeServices.includes("ai_conversations") && (
-                  <Area type="monotone" dataKey="aiConversations" name="AI Conversations" stroke={serviceColors.aiConversations} fill={serviceColors.aiConversations} fillOpacity={0.15} />
+                {activeServices.includes("ai") && (
+                  <Area type="monotone" dataKey="ai" name="AI" stroke={serviceColors.ai} fill={serviceColors.ai} fillOpacity={0.15} />
                 )}
               </AreaChart>
             </ResponsiveContainer>
@@ -69,16 +65,14 @@ export function OverviewTab({ activeServices }: Props) {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={280}>
-              <BarChart data={serviceBreakdown.filter((s) =>
-                activeServices.some((as) => s.service.toLowerCase().includes(as.split("_")[0]))
-              )}>
+              <BarChart data={serviceBreakdown}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                 <XAxis dataKey="service" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="searches" name="Searches" fill={serviceColors.keywordSearch} radius={[4, 4, 0, 0]} />
-                <Bar dataKey="clicks" name="Clicks" fill={serviceColors.aiAnswers} radius={[4, 4, 0, 0]} />
+                <Bar dataKey="clicks" name="Clicks" fill={serviceColors.ai} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -120,6 +114,18 @@ export function OverviewTab({ activeServices }: Props) {
               ))}
             </TableBody>
           </Table>
+        </CardContent>
+      </Card>
+
+      {/* Session Journeys Preview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Recent User Journeys</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {sessionJourneys.slice(0, 3).map((journey) => (
+            <SessionJourneyCard key={journey.id} journey={journey} />
+          ))}
         </CardContent>
       </Card>
     </div>

@@ -1,6 +1,6 @@
 import { ServiceType } from "@/types/analytics";
 import { Badge } from "@/components/ui/badge";
-import { Search, BrainCircuit, MessageSquare } from "lucide-react";
+import { Search, BrainCircuit } from "lucide-react";
 
 interface ServiceFilterProps {
   available: ServiceType[];
@@ -10,8 +10,7 @@ interface ServiceFilterProps {
 
 const serviceLabels: Record<ServiceType, { label: string; icon: React.ElementType }> = {
   keyword_search: { label: "Keyword Search", icon: Search },
-  ai_answers: { label: "AI Answers", icon: BrainCircuit },
-  ai_conversations: { label: "AI Conversations", icon: MessageSquare },
+  ai: { label: "AI (Answers + Conversations)", icon: BrainCircuit },
 };
 
 export function ServiceFilter({ available, active, onToggle }: ServiceFilterProps) {

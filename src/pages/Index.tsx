@@ -6,8 +6,8 @@ import { DateRangePicker } from "@/components/dashboard/DateRangePicker";
 import { ServiceFilter } from "@/components/dashboard/ServiceFilter";
 import { OverviewTab } from "@/components/dashboard/OverviewTab";
 import { KeywordSearchTab } from "@/components/dashboard/KeywordSearchTab";
-import { AIAnswersTab } from "@/components/dashboard/AIAnswersTab";
-import { AIConversationsTab } from "@/components/dashboard/AIConversationsTab";
+import { AITab } from "@/components/dashboard/AITab";
+import { ActivityLogTab } from "@/components/dashboard/ActivityLogTab";
 import { clientConfig } from "@/data/mock-data";
 import { DateRange, ServiceType } from "@/types/analytics";
 
@@ -28,7 +28,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b bg-card">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
@@ -44,7 +43,6 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Main content */}
       <main className="mx-auto max-w-7xl px-6 py-6">
         <div className="mb-6">
           <ServiceFilter
@@ -60,12 +58,10 @@ const Index = () => {
             {activeServices.includes("keyword_search") && (
               <TabsTrigger value="keyword_search">Keyword Search</TabsTrigger>
             )}
-            {activeServices.includes("ai_answers") && (
-              <TabsTrigger value="ai_answers">AI Answers</TabsTrigger>
+            {activeServices.includes("ai") && (
+              <TabsTrigger value="ai">AI</TabsTrigger>
             )}
-            {activeServices.includes("ai_conversations") && (
-              <TabsTrigger value="ai_conversations">AI Conversations</TabsTrigger>
-            )}
+            <TabsTrigger value="activity_log">Activity Log</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -74,11 +70,11 @@ const Index = () => {
           <TabsContent value="keyword_search">
             <KeywordSearchTab />
           </TabsContent>
-          <TabsContent value="ai_answers">
-            <AIAnswersTab />
+          <TabsContent value="ai">
+            <AITab />
           </TabsContent>
-          <TabsContent value="ai_conversations">
-            <AIConversationsTab />
+          <TabsContent value="activity_log">
+            <ActivityLogTab />
           </TabsContent>
         </Tabs>
       </main>
