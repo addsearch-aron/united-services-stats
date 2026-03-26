@@ -193,17 +193,6 @@ export function OverviewTab({ activeServices }: Props) {
         </CardContent>
       </Card>
 
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Recent User Journeys</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {sessionJourneys.slice(0, 3).map((journey) => (
-            <SessionJourneyCard key={journey.id} journey={journey} />
-          ))}
-        </CardContent>
-      </Card>
     </div>
   );
 }
