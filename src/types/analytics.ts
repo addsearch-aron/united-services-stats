@@ -113,7 +113,7 @@ export interface KeywordRow {
   ctr: number;
   services: ServiceType[];
   trend: number;
-  noResultRate: number;
+  avgClickPosition: number;
   avgAnswerQuality: number | null;
   topic: string;
 }

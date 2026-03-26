@@ -87,7 +87,7 @@ export function KeywordSearchTab() {
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
-                  <TableCell className="text-right">{row.noResultRate != null ? `${row.noResultRate}%` : "—"}</TableCell>
+                  <TableCell className="text-right">{row.avgClickPosition != null ? row.avgClickPosition.toFixed(1) : "—"}</TableCell>
                   <TableCell className="text-right">
                     <span className="inline-flex items-center gap-1">
                       {row.trend > 0 && <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />}
