@@ -54,16 +54,22 @@ const Index = () => {
         </div>
 
         <Tabs defaultValue="overview">
-          <TabsList className="mb-6">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            {activeServices.includes("keyword_search") && (
-              <TabsTrigger value="keyword_search">Keyword Search</TabsTrigger>
-            )}
-            {activeServices.includes("ai") && (
-              <TabsTrigger value="ai">AI</TabsTrigger>
-            )}
-            <TabsTrigger value="activity_log">Activity Log</TabsTrigger>
-          </TabsList>
+          <div className="flex items-center justify-between mb-6">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              {activeServices.includes("keyword_search") && (
+                <TabsTrigger value="keyword_search">Keyword Search</TabsTrigger>
+              )}
+              {activeServices.includes("ai") && (
+                <TabsTrigger value="ai">AI</TabsTrigger>
+              )}
+              <TabsTrigger value="activity_log">Activity Log</TabsTrigger>
+            </TabsList>
+            <div className="flex items-center gap-6">
+              <QuotaWidget label="Keyword Quota" used={12843} total={100000} />
+              <QuotaWidget label="Answers Quota" used={51} total={500000} />
+            </div>
+          </div>
 
           <TabsContent value="overview">
             <OverviewTab activeServices={activeServices} />
