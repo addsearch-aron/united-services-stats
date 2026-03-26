@@ -3,6 +3,7 @@ import { InfoTooltip } from "./InfoTooltip";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { ServiceBadgePopover } from "./ServiceBadgePopover";
 import { overviewKpis, trendData, topKeywords, serviceBreakdown } from "@/data/mock-data";
 import { ServiceType } from "@/types/analytics";
 import {
@@ -175,9 +176,7 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell>
                     <div className="flex gap-1">
                       {row.services.map((s) => (
-                        <Badge key={s} variant="secondary" className="text-[10px] px-1.5">
-                          {serviceLabel[s]}
-                        </Badge>
+                        <ServiceBadgePopover key={s} service={s} keyword={row.keyword} />
                       ))}
                     </div>
                   </TableCell>
