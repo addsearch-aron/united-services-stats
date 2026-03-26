@@ -55,9 +55,8 @@ export const keywordSearchKpis: KpiData[] = [
 export const aiKpis: KpiData[] = [
   { label: "Queries", value: "11,678", change: 22.4 },
   { label: "Conversations", value: "4,230", change: 14.8 },
-  { label: "Sufficient Answers", value: "89.4%", change: 3.2 },
   { label: "Questions/Conversation", value: "2.8", change: 5.1 },
-  { label: "Dive Deeper Rate", value: "34.2%", change: 8.6 },
+  { label: "Sufficient Answers", value: "89.4%", change: 3.2 },
   { label: "Clicks", value: "3,245", change: 14.3 },
   { label: "CTR", value: "27.8%", change: 2.4 },
 ];
