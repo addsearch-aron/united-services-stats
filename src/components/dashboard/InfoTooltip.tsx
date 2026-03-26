@@ -12,7 +12,7 @@ export function InfoTooltip({ text }: InfoTooltipProps) {
         <TooltipTrigger asChild>
           <Info className="inline h-3.5 w-3.5 text-muted-foreground/60 hover:text-muted-foreground cursor-help ml-1" />
         </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-[260px] text-xs">
+        <TooltipContent side="top" className="max-w-[360px] text-xs whitespace-normal break-words z-50">
           {text}
         </TooltipContent>
       </Tooltip>
