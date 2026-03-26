@@ -168,7 +168,7 @@ export function OverviewTab({ activeServices }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {topKeywords.map((row) => (
+              {filteredKeywords.map((row) => (
                 <TableRow key={row.keyword}>
                   <TableCell className="font-medium">{row.keyword}</TableCell>
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
