@@ -158,8 +158,13 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
                   <TableCell className="text-right">{row.avgClickPosition.toFixed(1)}</TableCell>
-                  <TableCell className={`text-right font-medium ${qualityColor(row.avgAnswerQuality)}`}>
-                    {row.avgAnswerQuality !== null ? row.avgAnswerQuality.toFixed(1) : "—"}
+                  <TableCell className="text-right">
+                    {row.avgAnswerQuality !== null ? (() => {
+                      const q = row.avgAnswerQuality!;
+                      if (q >= 2.5) return <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 border-emerald-200 text-[10px]">High</Badge>;
+                      if (q >= 1.5) return <Badge variant="outline" className="bg-amber-500/10 text-amber-700 border-amber-200 text-[10px]">Medium</Badge>;
+                      return <Badge variant="outline" className="bg-red-500/10 text-red-700 border-red-200 text-[10px]">Low</Badge>;
+                    })() : "—"}
                   </TableCell>
                   <TableCell>
                     <Badge variant="outline" className="text-[10px] px-1.5">
