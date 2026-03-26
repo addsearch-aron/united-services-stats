@@ -3,6 +3,7 @@ import { SessionJourneyCard } from "./SessionJourneyCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { InfoTooltip } from "./InfoTooltip";
 import { aiKpis, aiQueryRows, aiClickBreakdown, sessionJourneys } from "@/data/mock-data";
 import {
   Bar, BarChart, CartesianGrid, ResponsiveContainer,
