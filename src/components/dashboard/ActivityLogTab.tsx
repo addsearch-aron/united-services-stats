@@ -91,6 +91,20 @@ export function ActivityLogTab() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [activeTypes, setActiveTypes] = React.useState<ActivityEventType[]>(allTypes);
   const [expandedSessions, setExpandedSessions] = React.useState<Set<string>>(new Set());
+  const [flags, setFlags] = React.useState<Map<string, FlagAnnotation>>(new Map());
+  const [flagDialogOpen, setFlagDialogOpen] = React.useState(false);
+  const [flagTarget, setFlagTarget] = React.useState<{ sessionId: string; keyword: string } | null>(null);
+
+  const openFlagDialog = (sessionId: string, keyword: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFlagTarget({ sessionId, keyword });
+    setFlagDialogOpen(true);
+  };
+
+  const handleSaveFlag = (annotation: FlagAnnotation) => {
+    if (!flagTarget) return;
+    setFlags((prev) => new Map(prev).set(flagTarget.sessionId, annotation));
+  };
 
   const toggleType = (type: ActivityEventType) => {
     setActiveTypes((prev) =>
