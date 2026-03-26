@@ -187,11 +187,27 @@ export function FlagDialog({ open, onOpenChange, sessionId, keyword, annotation,
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>Save Flag</Button>
+          <div className="flex justify-between pt-2">
+            {annotation ? (
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => {
+                  onRemove();
+                  onOpenChange(false);
+                }}
+              >
+                Remove Flag
+              </Button>
+            ) : (
+              <div />
+            )}
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => onOpenChange(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>Save Flag</Button>
+            </div>
           </div>
         </div>
       </DialogContent>
