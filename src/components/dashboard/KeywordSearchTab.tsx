@@ -8,7 +8,7 @@ import { TrendingUp, TrendingDown, Minus, Download } from "lucide-react";
 import { toast } from "sonner";
 
 function exportToCsv() {
-  const headers = ["Keyword", "Searches", "Clicks", "CTR", "No Results %", "Topic", "Trend"];
+  const headers = ["Keyword", "Searches", "Clicks", "CTR", "ACP", "Topic", "Trend"];
   const rows = keywordRankings.map((r) => [
     r.keyword,
     r.searches,
