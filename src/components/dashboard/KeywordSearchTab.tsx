@@ -69,7 +69,7 @@ export function KeywordSearchTab() {
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
                 <TableHead className="text-right">CTR</TableHead>
-                <TableHead className="text-right">No Results %</TableHead>
+                <TableHead className="text-right">ACP</TableHead>
                 <TableHead className="text-right">Trend</TableHead>
               </TableRow>
             </TableHeader>
