@@ -20,6 +20,13 @@ const serviceLabel: Record<ServiceType, string> = {
   ai: "AI",
 };
 
+const qualityColor = (q: number | null) => {
+  if (q === null) return "text-muted-foreground";
+  if (q >= 2.5) return "text-emerald-600";
+  if (q >= 1.5) return "text-amber-500";
+  return "text-destructive";
+};
+
 interface Props {
   activeServices: ServiceType[];
 }
@@ -29,7 +36,7 @@ export function OverviewTab({ activeServices }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
         {overviewKpis.map((kpi) => (
           <KpiCard key={kpi.label} data={kpi} />
         ))}
@@ -52,7 +59,7 @@ export function OverviewTab({ activeServices }: Props) {
                   <Area type="monotone" dataKey="keywordSearch" name="Keyword Search" stroke={serviceColors.keywordSearch} fill={serviceColors.keywordSearch} fillOpacity={0.15} />
                 )}
                 {activeServices.includes("ai") && (
-                  <Area type="monotone" dataKey="ai" name="AI" stroke={serviceColors.ai} fill={serviceColors.ai} fillOpacity={0.15} />
+                  <Area type="monotone" dataKey="ai" name="AI Answers" stroke={serviceColors.ai} fill={serviceColors.ai} fillOpacity={0.15} />
                 )}
               </AreaChart>
             </ResponsiveContainer>
@@ -91,6 +98,9 @@ export function OverviewTab({ activeServices }: Props) {
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
                 <TableHead className="text-right">CTR</TableHead>
+                <TableHead className="text-right">No Results</TableHead>
+                <TableHead className="text-right">Answer Quality</TableHead>
+                <TableHead>Topic</TableHead>
                 <TableHead>Services</TableHead>
               </TableRow>
             </TableHeader>
@@ -101,6 +111,15 @@ export function OverviewTab({ activeServices }: Props) {
                   <TableCell className="text-right">{row.searches.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.clicks.toLocaleString()}</TableCell>
                   <TableCell className="text-right">{row.ctr}%</TableCell>
+                  <TableCell className="text-right">{row.noResultRate}%</TableCell>
+                  <TableCell className={`text-right font-medium ${qualityColor(row.avgAnswerQuality)}`}>
+                    {row.avgAnswerQuality !== null ? row.avgAnswerQuality.toFixed(1) : "—"}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline" className="text-[10px] px-1.5">
+                      {row.topic}
+                    </Badge>
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
                       {row.services.map((s) => (
