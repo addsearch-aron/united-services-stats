@@ -9,6 +9,7 @@ import { ActivityEventType, ActivityLogEntry, FlagAnnotation } from "@/types/ana
 import { format } from "date-fns";
 import { Search, MousePointerClick, BrainCircuit, MessageSquare, ArrowDownRight, ThumbsUp, ChevronDown, ChevronRight, Flag } from "lucide-react";
 import { FlagDialog } from "./FlagDialog";
+import { InfoTooltip } from "./InfoTooltip";
 const eventConfig: Record<ActivityEventType, { label: string; icon: React.ElementType; color: string }> = {
   search: { label: "Search", icon: Search, color: "bg-primary/10 text-primary" },
   click: { label: "Click", icon: MousePointerClick, color: "bg-blue-500/10 text-blue-600" },
@@ -189,8 +190,8 @@ export function ActivityLogTab() {
                 <TableHead className="w-[120px]">Session</TableHead>
                 <TableHead>Keyword</TableHead>
                 <TableHead>Events</TableHead>
-                <TableHead className="w-[90px]">Resolved?</TableHead>
-                <TableHead className="w-[100px]">Quality</TableHead>
+                <TableHead className="w-[90px]">Resolved?<InfoTooltip text="Whether the user's query was resolved. Yes = clicked a result or gave positive sentiment. No = negative sentiment or no clicks after AI answer." /></TableHead>
+                <TableHead className="w-[100px]">Quality<InfoTooltip text="AI answer quality: Sufficient = answer met user needs. No Answer = AI could not generate an answer." /></TableHead>
                 <TableHead className="w-[40px]"></TableHead>
               </TableRow>
             </TableHeader>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { keywordSearchKpis, keywordRankings, zeroResultSearches } from "@/data/mock-data";
 import { TrendingUp, TrendingDown, Minus, Download } from "lucide-react";
+import { InfoTooltip } from "./InfoTooltip";
 import { toast } from "sonner";
 
 function exportToCsv() {
@@ -68,9 +69,9 @@ export function KeywordSearchTab() {
                 <TableHead>Topic</TableHead>
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
-                <TableHead className="text-right">CTR</TableHead>
-                <TableHead className="text-right">ACP</TableHead>
-                <TableHead className="text-right">Trend</TableHead>
+                <TableHead className="text-right">CTR<InfoTooltip text="Click-Through Rate = (Clicks ÷ Searches) × 100." /></TableHead>
+                <TableHead className="text-right">ACP<InfoTooltip text="Average Click Position — the mean rank of clicked results. Lower = users click higher-ranked results. Ties use the average of tied positions." /></TableHead>
+                <TableHead className="text-right">Trend<InfoTooltip text="Search volume change compared to the previous period. Positive = growing interest." /></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

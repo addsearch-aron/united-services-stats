@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { KpiData } from "@/types/analytics";
+import { InfoTooltip } from "./InfoTooltip";
 
 interface KpiCardProps {
   data: KpiData;
@@ -12,7 +13,10 @@ export function KpiCard({ data }: KpiCardProps) {
   return (
     <Card>
       <CardContent className="p-5">
-        <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">{data.label}</p>
+        <p className="text-sm font-medium text-muted-foreground whitespace-nowrap flex items-center">
+          {data.label}
+          {data.tooltip && <InfoTooltip text={data.tooltip} />}
+        </p>
         <p className="mt-1 text-2xl font-bold text-foreground">{data.value}</p>
         {data.change !== undefined && (
           <div className="mt-2 flex items-center gap-1 text-xs">

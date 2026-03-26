@@ -3,6 +3,7 @@ import { SessionJourneyCard } from "./SessionJourneyCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { InfoTooltip } from "./InfoTooltip";
 import { aiKpis, aiQueryRows, aiClickBreakdown, sessionJourneys } from "@/data/mock-data";
 import {
   Bar, BarChart, CartesianGrid, ResponsiveContainer,
@@ -70,8 +71,8 @@ export function AITab() {
                 <TableHead>Topic</TableHead>
                 <TableHead className="text-right">Asked</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
-                <TableHead className="text-right">CTR%</TableHead>
-                <TableHead className="text-center">Quality</TableHead>
+                <TableHead className="text-right">CTR%<InfoTooltip text="Click-Through Rate = (Clicks ÷ Asked) × 100 for AI queries." /></TableHead>
+                <TableHead className="text-center">Quality<InfoTooltip text="AI answer quality: High (score ≥ 2.5), Medium (≥ 1.5), Low (< 1.5). Based on automated relevance evaluation." /></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
