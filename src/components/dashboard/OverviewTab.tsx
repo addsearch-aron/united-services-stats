@@ -144,9 +144,9 @@ export function OverviewTab({ activeServices }: Props) {
                 <TableHead>Keyword</TableHead>
                 <TableHead className="text-right">Searches</TableHead>
                 <TableHead className="text-right">Clicks</TableHead>
-                <TableHead className="text-right">CTR</TableHead>
-                <TableHead className="text-right">ACP</TableHead>
-                <TableHead className="text-right">Quality</TableHead>
+                <TableHead className="text-right">CTR<InfoTooltip text="Click-Through Rate = (Clicks ÷ Searches) × 100." /></TableHead>
+                <TableHead className="text-right">ACP<InfoTooltip text="Average Click Position — the mean position of clicked results. Lower = users click higher-ranked results. Ties use the average of tied positions." /></TableHead>
+                <TableHead className="text-right">Quality<InfoTooltip text="AI answer quality score (0–3). High ≥ 2.5, Medium ≥ 1.5, Low < 1.5. Based on automated relevance evaluation." /></TableHead>
                 <TableHead>Topic</TableHead>
                 <TableHead>Services</TableHead>
               </TableRow>
