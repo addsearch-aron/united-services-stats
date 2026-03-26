@@ -7,7 +7,7 @@ import { overviewKpis, trendData, topKeywords, serviceBreakdown, sessionJourneys
 import { ServiceType } from "@/types/analytics";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer,
-  Tooltip, XAxis, YAxis, Legend,
+  Tooltip, XAxis, YAxis, Legend, PieChart, Pie, Cell,
 } from "recharts";
 
 const serviceColors: Record<string, string> = {
@@ -31,12 +31,59 @@ interface Props {
   activeServices: ServiceType[];
 }
 
+const TOPIC_COLORS = [
+  "hsl(222, 47%, 30%)",
+  "hsl(200, 70%, 45%)",
+  "hsl(150, 50%, 40%)",
+  "hsl(35, 80%, 50%)",
+  "hsl(0, 60%, 50%)",
+  "hsl(270, 50%, 50%)",
+  "hsl(180, 50%, 40%)",
+  "hsl(310, 50%, 50%)",
+];
+
+function TopicDistribution() {
+  // Aggregate searches by topic from topKeywords
+  const topicMap = new Map<string, number>();
+  topKeywords.forEach((row) => {
+    topicMap.set(row.topic, (topicMap.get(row.topic) || 0) + row.searches);
+  });
+  const total = Array.from(topicMap.values()).reduce((a, b) => a + b, 0);
+  const data = Array.from(topicMap.entries())
+    .map(([name, value]) => ({ name, value, pct: ((value / total) * 100).toFixed(1) }))
+    .sort((a, b) => b.value - a.value);
+
+  return (
+    <div className="flex items-center gap-6">
+      <ResponsiveContainer width={180} height={180}>
+        <PieChart>
+          <Pie data={data} dataKey="value" cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={2}>
+            {data.map((_, i) => (
+              <Cell key={i} fill={TOPIC_COLORS[i % TOPIC_COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip formatter={(value: number) => value.toLocaleString()} />
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="flex flex-col gap-1.5 text-sm">
+        {data.map((d, i) => (
+          <div key={d.name} className="flex items-center gap-2">
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: TOPIC_COLORS[i % TOPIC_COLORS.length] }} />
+            <span className="text-muted-foreground">{d.name}</span>
+            <span className="font-medium">{d.pct}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function OverviewTab({ activeServices }: Props) {
   const filteredTrend = trendData.slice(-30);
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
         {overviewKpis.map((kpi) => (
           <KpiCard key={kpi.label} data={kpi} />
         ))}
@@ -136,7 +183,17 @@ export function OverviewTab({ activeServices }: Props) {
         </CardContent>
       </Card>
 
-      {/* Session Journeys Preview */}
+      {/* Topic Distribution */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Topic Distribution</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <TopicDistribution />
+        </CardContent>
+      </Card>
+
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Recent User Journeys</CardTitle>
