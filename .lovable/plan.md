@@ -1,53 +1,95 @@
 
-## Unified Search & AI Statistics Dashboard
 
-### Overview
-A client-facing analytics dashboard with multi-tab navigation, showing unified statistics across three services: **Keyword Search**, **AI Answers**, and **AI Conversations**. Uses mock data, no auth. Custom date range picker for filtering.
+# Revised Dashboard: Connected Search & AI Analytics
+
+## What Changes and Why
+
+The current dashboard treats AI Answers and AI Conversations as isolated tabs with no connection between them. In reality, AddSearch's AI Answers already returns a `conversation_id`, and "Dive Deeper" is the bridge from an answer into a conversation. The data model needs to reflect this connected flow.
+
+## Key Design Decisions
+
+### 1. Merge AI Answers + Conversations into "AI" Tab
+Instead of two separate tabs, create a single **AI** tab that shows the full journey: query → answer → optional dive deeper → conversation. Keep Keyword Search as a separate tab since pure keyword searches are a distinct flow.
+
+**Tab structure becomes:**
+- Overview (aggregated)
+- Keyword Search (pure search events)
+- AI (answers, dive deeper, conversations — all connected)
+- Activity Log (individual event logs)
+
+### 2. User Journey Visualization
+Add a "Session Journeys" section showing connected user flows. Example from the brief:
+
+```text
+Search: "show me your pricing"
+  ├─ Clicked keyword result #1 (pricing-page.html)
+  ├─ AI Answer shown
+  │   ├─ Liked answer (positive sentiment)
+  │   └─ Clicked "Dive Deeper"
+  │       └─ Conversation started
+  │           ├─ User: "tell me more about AI pricing"
+  │           ├─ AI: [response with links]
+  │           └─ Clicked: "Book a meeting" link
+```
+
+This is rendered as a visual timeline/tree component showing the actual chain of events within a session.
+
+### 3. Individual Activity Log Tab
+A new tab showing raw event logs — every search, click, AI answer, conversation message — in chronological order with filtering by event type, date, and keyword.
 
 ---
 
-### Page Structure
+## Technical Plan
 
-**1. Overview Tab (default)**
-- **KPI cards row**: Total Searches, Total Clicks, Overall CTR, AI Usage Rate
-- **Trend chart**: Line/area chart showing search volume over time, with toggleable lines per service
-- **Service breakdown**: Bar chart comparing performance across active services
-- **Top Keywords table**: Aggregated across all services, with clicks, CTR, and which service(s) they appeared in
+### Data Model Changes (`src/types/analytics.ts`)
+- Add `SessionJourney` type linking a search session to its chain of events (search → clicks → AI answer → dive deeper → conversation → clicks)
+- Add `ActivityLogEntry` union type for the raw log view
+- Update `AIAnswerEvent` to include `conversationId` (matching AddSearch's real API where AI answers return `conversation_id`)
+- Add `sentimentValue` field (positive/negative) matching `putSentimentClick`
+- Add `diveDeeper` boolean to track answer-to-conversation transitions
+- Rename `ServiceType` to include `"ai"` instead of separate `"ai_answers"` and `"ai_conversations"`
 
-**2. Keyword Search Tab**
-- KPIs: Searches, Clicks, CTR, Top keyword
-- Keyword ranking table with search volume, clicks, CTR, position trends
-- Click distribution chart (which results get clicked)
-- Zero-result searches list
+### Mock Data Updates (`src/data/mock-data.ts`)
+- Generate connected session journeys (a search that leads to an AI answer that leads to dive deeper)
+- Generate activity log entries with realistic event chains
+- Keep existing KPI data but adjust to new structure
 
-**3. AI Answers Tab**
-- KPIs: Queries, Answers generated, Source clicks, Search result clicks
-- Query performance table: query text, answer shown (yes/no), source link clicks, search result clicks behind the answer
-- Click breakdown: clicks on inline answer links/sources vs. clicks on accompanying search results
-- Answer engagement chart over time
+### New/Modified Components
 
-**4. AI Conversations Tab**
-- KPIs: Conversations started, Avg messages per conversation, Search triggers, Interaction rate
-- Conversations table: start time, message count, searches triggered, interactions
-- Engagement funnel: conversations → follow-up questions → searches → clicks
-- Placeholder section for future "Dive Deeper" (AI Answers → Conversations) tracking
+**Merge AI Answers + Conversations → `AITab.tsx`**
+- KPIs: Queries, Answers Generated, Dive Deeper Rate, Conversation Clicks
+- Query table showing: query, answer shown, source clicks, search result clicks, dive deeper triggered, conversation messages, conversation clicks
+- Click breakdown chart (source links vs answer links vs search results vs conversation links)
+- Dive deeper funnel: Queries → Answers → Dive Deeper → Conversations → Clicks
 
----
+**New: `SessionJourneyCard.tsx`**
+- Visual timeline/tree showing a user's connected flow
+- Expandable rows: search → what happened next
+- Added to Overview tab and also accessible from AI tab
 
-### Shared Controls
-- **Date range picker**: Presets (7d, 30d, 90d) + custom date range selector
-- **Service filter**: Toggle which services to include (for clients with multiple services)
-- Tabs: Overview | Keyword Search | AI Answers | AI Conversations (tabs only show for services the client has)
+**New: `ActivityLogTab.tsx`**
+- Chronological table of all raw events
+- Columns: timestamp, event type, details (keyword/query/click target), session ID
+- Filters: event type checkboxes, keyword search, date range
+- Expandable rows for full event detail
 
-### Data Layer
-- Mock data generator producing realistic data for all three services
-- Shared TypeScript types for the unified event model:
-  - `SearchEvent` (keyword, service, timestamp, results_count)
-  - `ClickEvent` (target_type: "search_result" | "answer_source" | "answer_link", position, url)
-  - `ConversationEvent` (conversation_id, message_count, searches_triggered, interactions)
-- Data hooks per tab that filter by date range and service
+**Update: `Index.tsx`**
+- Replace ai_answers + ai_conversations tabs with single "AI" tab
+- Add "Activity Log" tab
+- Update service filter accordingly
 
-### Design
-- Clean, professional dashboard using shadcn cards, tables, and charts (Recharts)
-- Responsive layout, sidebar navigation with service icons
-- Light color palette matching the existing design system
+### Files to Create
+- `src/components/dashboard/AITab.tsx` (replaces AIAnswersTab + AIConversationsTab)
+- `src/components/dashboard/SessionJourneyCard.tsx`
+- `src/components/dashboard/ActivityLogTab.tsx`
+
+### Files to Modify
+- `src/types/analytics.ts` — new types for journeys and activity log
+- `src/data/mock-data.ts` — connected session data and log entries
+- `src/pages/Index.tsx` — new tab structure
+- `src/components/dashboard/OverviewTab.tsx` — add journey preview section
+
+### Files to Delete
+- `src/components/dashboard/AIAnswersTab.tsx`
+- `src/components/dashboard/AIConversationsTab.tsx`
+
