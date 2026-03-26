@@ -1,95 +1,49 @@
 
 
-# Revised Dashboard: Connected Search & AI Analytics
+# Overview Tab Revision
 
-## What Changes and Why
+## Tracking Model Update (types + mock data)
 
-The current dashboard treats AI Answers and AI Conversations as isolated tabs with no connection between them. In reality, AddSearch's AI Answers already returns a `conversation_id`, and "Dive Deeper" is the bridge from an answer into a conversation. The data model needs to reflect this connected flow.
+Refine the data model to match the described hierarchy:
+- **Session** → contains multiple queries
+- **Query** (question_id) → triggers keyword search AND/OR AI answer
+- **Conversation** (conversation_id) → groups the initial AI answer query + all dive deeper follow-ups
+- Each query has: `questionId`, `conversationId` (if AI), `sessionId`
+- Track: `hasResults` (boolean) for searches, `answerGenerated` for AI, `answerQuality` (0-3)
 
-## Key Design Decisions
+### New/updated types in `analytics.ts`:
+- Add `questionId` and `conversationId` fields to `SearchEvent`
+- Add `answerQuality: number` (0-3) to `AIAnswerEvent`
+- Add `hasResults: boolean` to `SearchEvent` (rename/clarify `resultsCount`)
+- Add `topic: string` to both `SearchEvent` and `AIAnswerEvent`
+- Update `KeywordRow` to include `noResultRate`, `avgAnswerQuality`, `topic`
+- Update `TrendDataPoint` to separate keyword search count vs AI answer count
 
-### 1. Merge AI Answers + Conversations into "AI" Tab
-Instead of two separate tabs, create a single **AI** tab that shows the full journey: query → answer → optional dive deeper → conversation. Keep Keyword Search as a separate tab since pure keyword searches are a distinct flow.
+## Overview Page Changes
 
-**Tab structure becomes:**
-- Overview (aggregated)
-- Keyword Search (pure search events)
-- AI (answers, dive deeper, conversations — all connected)
-- Activity Log (individual event logs)
+### KPI Cards (top row, 5 cards):
+1. **Total Queries** — searches + AI questions combined
+2. **Total Clicks** — all click actions
+3. **Overall CTR%** — clicks / queries
+4. **No Results %** — queries returning 0 results or no answer
+5. **AI Usage Rate** — AI queries / total queries
 
-### 2. User Journey Visualization
-Add a "Session Journeys" section showing connected user flows. Example from the brief:
+### Chart:
+- Keep the area chart but ensure two clear lines: **Keyword Searches** and **AI Answers** (total answer count, not query count)
 
-```text
-Search: "show me your pricing"
-  ├─ Clicked keyword result #1 (pricing-page.html)
-  ├─ AI Answer shown
-  │   ├─ Liked answer (positive sentiment)
-  │   └─ Clicked "Dive Deeper"
-  │       └─ Conversation started
-  │           ├─ User: "tell me more about AI pricing"
-  │           ├─ AI: [response with links]
-  │           └─ Clicked: "Book a meeting" link
-```
+### Top Keywords Table — add columns:
+- Existing: Keyword, Searches, Clicks, CTR, Services
+- **New: No Results %** — percentage of times this keyword returned no results
+- **New: Avg Answer Quality** — average quality score (0-3) for AI answers on this keyword
+- **New: Topic** — auto-assigned topic category (e.g., "Pricing", "Features", "Support", "Integration")
 
-This is rendered as a visual timeline/tree component showing the actual chain of events within a session.
+### Session Journeys:
+- Keep as-is (already working)
 
-### 3. Individual Activity Log Tab
-A new tab showing raw event logs — every search, click, AI answer, conversation message — in chronological order with filtering by event type, date, and keyword.
+## Files Modified
 
----
-
-## Technical Plan
-
-### Data Model Changes (`src/types/analytics.ts`)
-- Add `SessionJourney` type linking a search session to its chain of events (search → clicks → AI answer → dive deeper → conversation → clicks)
-- Add `ActivityLogEntry` union type for the raw log view
-- Update `AIAnswerEvent` to include `conversationId` (matching AddSearch's real API where AI answers return `conversation_id`)
-- Add `sentimentValue` field (positive/negative) matching `putSentimentClick`
-- Add `diveDeeper` boolean to track answer-to-conversation transitions
-- Rename `ServiceType` to include `"ai"` instead of separate `"ai_answers"` and `"ai_conversations"`
-
-### Mock Data Updates (`src/data/mock-data.ts`)
-- Generate connected session journeys (a search that leads to an AI answer that leads to dive deeper)
-- Generate activity log entries with realistic event chains
-- Keep existing KPI data but adjust to new structure
-
-### New/Modified Components
-
-**Merge AI Answers + Conversations → `AITab.tsx`**
-- KPIs: Queries, Answers Generated, Dive Deeper Rate, Conversation Clicks
-- Query table showing: query, answer shown, source clicks, search result clicks, dive deeper triggered, conversation messages, conversation clicks
-- Click breakdown chart (source links vs answer links vs search results vs conversation links)
-- Dive deeper funnel: Queries → Answers → Dive Deeper → Conversations → Clicks
-
-**New: `SessionJourneyCard.tsx`**
-- Visual timeline/tree showing a user's connected flow
-- Expandable rows: search → what happened next
-- Added to Overview tab and also accessible from AI tab
-
-**New: `ActivityLogTab.tsx`**
-- Chronological table of all raw events
-- Columns: timestamp, event type, details (keyword/query/click target), session ID
-- Filters: event type checkboxes, keyword search, date range
-- Expandable rows for full event detail
-
-**Update: `Index.tsx`**
-- Replace ai_answers + ai_conversations tabs with single "AI" tab
-- Add "Activity Log" tab
-- Update service filter accordingly
-
-### Files to Create
-- `src/components/dashboard/AITab.tsx` (replaces AIAnswersTab + AIConversationsTab)
-- `src/components/dashboard/SessionJourneyCard.tsx`
-- `src/components/dashboard/ActivityLogTab.tsx`
-
-### Files to Modify
-- `src/types/analytics.ts` — new types for journeys and activity log
-- `src/data/mock-data.ts` — connected session data and log entries
-- `src/pages/Index.tsx` — new tab structure
-- `src/components/dashboard/OverviewTab.tsx` — add journey preview section
-
-### Files to Delete
-- `src/components/dashboard/AIAnswersTab.tsx`
-- `src/components/dashboard/AIConversationsTab.tsx`
+1. **`src/types/analytics.ts`** — add `questionId`, `conversationId`, `answerQuality`, `topic`, `hasResults` fields; update `KeywordRow`
+2. **`src/data/mock-data.ts`** — update mock data generator to produce topic labels, answer quality scores, no-result flags; update KPI values to match new definitions
+3. **`src/components/dashboard/OverviewTab.tsx`** — 5 KPI cards, add No Results %, Answer Quality, and Topic columns to table
+4. **`src/components/dashboard/KpiCard.tsx`** — minor: support 5-card grid layout
 
