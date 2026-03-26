@@ -5,10 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { activityLog } from "@/data/mock-data";
-import { ActivityEventType, ActivityLogEntry } from "@/types/analytics";
+import { ActivityEventType, ActivityLogEntry, FlagAnnotation } from "@/types/analytics";
 import { format } from "date-fns";
-import { Search, MousePointerClick, BrainCircuit, MessageSquare, ArrowDownRight, ThumbsUp, ChevronDown, ChevronRight } from "lucide-react";
-
+import { Search, MousePointerClick, BrainCircuit, MessageSquare, ArrowDownRight, ThumbsUp, ChevronDown, ChevronRight, Flag } from "lucide-react";
+import { FlagDialog } from "./FlagDialog";
 const eventConfig: Record<ActivityEventType, { label: string; icon: React.ElementType; color: string }> = {
   search: { label: "Search", icon: Search, color: "bg-primary/10 text-primary" },
   click: { label: "Click", icon: MousePointerClick, color: "bg-blue-500/10 text-blue-600" },
@@ -91,6 +91,20 @@ export function ActivityLogTab() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [activeTypes, setActiveTypes] = React.useState<ActivityEventType[]>(allTypes);
   const [expandedSessions, setExpandedSessions] = React.useState<Set<string>>(new Set());
+  const [flags, setFlags] = React.useState<Map<string, FlagAnnotation>>(new Map());
+  const [flagDialogOpen, setFlagDialogOpen] = React.useState(false);
+  const [flagTarget, setFlagTarget] = React.useState<{ sessionId: string; keyword: string } | null>(null);
+
+  const openFlagDialog = (sessionId: string, keyword: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFlagTarget({ sessionId, keyword });
+    setFlagDialogOpen(true);
+  };
+
+  const handleSaveFlag = (annotation: FlagAnnotation) => {
+    if (!flagTarget) return;
+    setFlags((prev) => new Map(prev).set(flagTarget.sessionId, annotation));
+  };
 
   const toggleType = (type: ActivityEventType) => {
     setActiveTypes((prev) =>
@@ -168,6 +182,7 @@ export function ActivityLogTab() {
                 <TableHead>Events</TableHead>
                 <TableHead className="w-[90px]">Resolved?</TableHead>
                 <TableHead className="w-[100px]">Quality</TableHead>
+                <TableHead className="w-[40px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -231,6 +246,21 @@ export function ActivityLogTab() {
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
+                      <TableCell className="px-2">
+                        <button
+                          onClick={(e) => openFlagDialog(group.sessionId, group.keyword, e)}
+                          className="inline-flex items-center justify-center h-6 w-6 rounded hover:bg-muted transition-colors"
+                          title="Flag this session"
+                        >
+                          <Flag
+                            className={`h-3.5 w-3.5 ${
+                              flags.has(group.sessionId)
+                                ? "text-orange-500 fill-orange-500"
+                                : "text-muted-foreground"
+                            }`}
+                          />
+                        </button>
+                      </TableCell>
                     </TableRow>
 
                     {/* Expanded child rows */}
@@ -259,6 +289,7 @@ export function ActivityLogTab() {
                             <TableCell className="text-sm max-w-[300px] truncate">{entry.detail}</TableCell>
                             <TableCell className="text-xs text-muted-foreground">{entry.url ?? "—"}</TableCell>
                             <TableCell></TableCell>
+                            <TableCell></TableCell>
                           </TableRow>
                         );
                       })}
@@ -273,6 +304,17 @@ export function ActivityLogTab() {
           )}
         </CardContent>
       </Card>
+
+      {flagTarget && (
+        <FlagDialog
+          open={flagDialogOpen}
+          onOpenChange={setFlagDialogOpen}
+          sessionId={flagTarget.sessionId}
+          keyword={flagTarget.keyword}
+          annotation={flags.get(flagTarget.sessionId) ?? null}
+          onSave={handleSaveFlag}
+        />
+      )}
     </div>
   );
 }
