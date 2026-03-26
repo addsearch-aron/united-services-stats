@@ -334,7 +334,7 @@ export const activityLog: ActivityLogEntry[] = [
   { id: "log-015", sessionId: "sess-g7h8i9", timestamp: new Date("2026-03-24T09:20:10"), eventType: "click", keyword: "billing support", detail: "Clicked result #1: /billing-faq", url: "/billing-faq" },
   { id: "log-016", sessionId: "sess-g7h8i9", timestamp: new Date("2026-03-24T09:20:45"), eventType: "click", keyword: "billing support", detail: "Clicked result #3: /contact", url: "/contact" },
   { id: "log-017", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:00"), eventType: "search", keyword: "SSO integration", detail: "Search performed — 5 results" },
-  { id: "log-018", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:05"), eventType: "ai_answer", keyword: "SSO integration", detail: "AI Answer generated" },
+  { id: "log-018", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:05"), eventType: "ai_answer", keyword: "SSO integration", detail: "AI Answer generated", answerQuality: "no_answer" },
   { id: "log-019", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:30"), eventType: "sentiment", keyword: "SSO integration", detail: "Negative sentiment on AI Answer" },
   { id: "log-020", sessionId: "sess-j0k1l2", timestamp: new Date("2026-03-24T16:45:40"), eventType: "click", keyword: "SSO integration", detail: "Clicked result #2: /docs/sso", url: "/docs/sso" },
 ];

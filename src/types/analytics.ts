@@ -97,6 +97,7 @@ export interface ActivityLogEntry {
   keyword?: string;
   detail: string;
   url?: string;
+  answerQuality?: "sufficient" | "no_answer" | null;
 }
 
 // Chart data
